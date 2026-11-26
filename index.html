@@ -1,0 +1,671 @@
+<title>岫本 XIUBEN</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;600&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#060606;--ink:#F6EEE0;--dim:#A8A093;--gold:#D6B88A;--sage:#A9BC9C;--mist:#DAD9D4;--soot:#24221E;
+--serif:"Noto Serif TC","Songti TC","PMingLiU",serif;--sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+--gl:max(16px,env(safe-area-inset-left));--gr:max(16px,env(safe-area-inset-right));--side:clamp(16px,7vw,128px)}
+*{box-sizing:border-box}
+html{background:var(--bg);overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.75;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img,video,canvas{display:block}
+h1,h2,h3,p,dl,dd,ol{margin:0;padding:0}
+ol{list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
+#track{position:relative}
+#stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
+.ch{position:absolute;inset:0;background:var(--bg);overflow:hidden;visibility:hidden;will-change:opacity}
+.ch:first-of-type{visibility:visible}
+.fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+canvas.seq{position:absolute;left:33%;top:0;width:67%;height:100%;-webkit-mask:linear-gradient(90deg,#0000,#000 17%);mask:linear-gradient(90deg,#0000,#000 17%)}
+#parts canvas.seq{left:0;width:70%;-webkit-mask:linear-gradient(270deg,#0000,#000 12%);mask:linear-gradient(270deg,#0000,#000 12%)}
+.abs{position:absolute}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,min(3.9vw,7.4svh),64px);line-height:1.26;letter-spacing:.02em;text-wrap:balance}
+.p{font-size:clamp(15px,1.2vw,18px);color:#CFC7B9;max-width:22em;margin-top:1em;text-wrap:pretty}
+.note{font-size:13px;color:var(--dim);letter-spacing:.02em}
+.txt{position:absolute;left:calc(var(--side) + var(--gl) - 16px);max-width:min(26vw,440px);top:50%;transform:translateY(-50%)}
+.txt.r{left:auto;right:calc(var(--side) + 24px)}
+.num{font-family:var(--serif);font-variant-numeric:tabular-nums}
+
+/* 首頁 */
+#hero .plate{opacity:.9}
+.unit{position:absolute;bottom:3.2svh;width:var(--pw);--pw:min(29.5svh,50vw);transform-origin:50% 100%;will-change:transform}
+.unit img{width:100%;height:auto}
+.unit.g{left:calc(27% - var(--pw)/2)} .unit.k{left:calc(73% - var(--pw)/2)}
+.mv{position:absolute;width:calc(var(--pw)*1.219);--pw:min(29.5svh,50vw);mix-blend-mode:screen;transform-origin:50% 100%;pointer-events:none}
+.mv.g{left:calc(27% - var(--pw)*.6035);bottom:calc(3.2svh + var(--pw)*2.273)}
+.mv.k{left:calc(73% - var(--pw)*.6035);bottom:calc(3.2svh + var(--pw)*2.723)}
+.ttl{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);text-align:center;width:min(90vw,600px)}
+.ttl h1{font-family:var(--serif);font-weight:500;font-size:clamp(64px,9.4vw,150px);line-height:1;letter-spacing:.16em;margin-right:-.16em}
+.ttl .en{color:var(--gold);letter-spacing:.62em;margin:1.4em -.62em 0 0;font-size:clamp(13px,1.15vw,17px);font-weight:400}
+.ttl .tag{font-family:var(--serif);font-size:clamp(17px,1.6vw,24px);margin-top:1.1em;color:#E4DBCB;letter-spacing:.08em}
+.cue{position:absolute;left:50%;bottom:13svh;transform:translateX(-50%);font-size:13px;letter-spacing:.3em;color:#E9E0D0;text-shadow:0 0 10px #000}
+.cue i{display:block;width:1px;height:38px;margin:10px auto 0;background:linear-gradient(var(--gold),transparent);animation:drip 2.2s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}55%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+
+/* 霧 */
+#veil{position:absolute;inset:0;z-index:30;pointer-events:none;overflow:hidden;visibility:hidden}
+#veil img{position:absolute;left:50%;top:50%;width:150vmax;height:auto;margin:-42vmax 0 0 -75vmax;will-change:transform,opacity}
+#veil div{position:absolute;inset:0;background:var(--mist)}
+
+/* 動機 */
+#why .pale{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 30%,#EFEEEA,#CFCEC8)}
+.say{position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:var(--soot);padding:0 8vw}
+.say h2{font-size:clamp(32px,5vw,76px)}
+.say{padding:0 6vw}.say p{color:#57534B;font-size:clamp(16px,1.35vw,20px);margin-top:1.4em;font-weight:400}
+.q,.a{position:absolute;inset:0}
+.q{display:grid;place-content:center;text-align:center;padding:0 8vw}
+.q h2{font-size:clamp(34px,6vw,92px);max-width:13em}
+.a .pic{position:absolute;inset:0;background-size:cover;background-position:center}
+.a .pic.half{right:50%}.a .pic.half+.half{left:50%;right:0}
+.a .sh{position:absolute;inset:0}
+.a .pic.side{left:36%;-webkit-mask:linear-gradient(90deg,#0000,#000 22%);mask:linear-gradient(90deg,#0000,#000 22%)}.a.lt{background:#E9E5E2;color:var(--soot)}.a.lt .pic{bottom:30svh}.a.lt .cap{position:absolute;left:0;right:0;bottom:0;height:30svh;display:grid;place-content:center;justify-items:center;text-align:center}.a.lt .p{color:#4A463F;font-weight:400;max-width:none;margin-top:.5em}
+.a .txt h2{font-size:clamp(30px,min(3.7vw,7svh),60px)}
+.lit{color:var(--soot)} .lit .p{color:#4A463F;font-weight:400}
+
+/* 演變 */
+#evo{background:#0B0B0A}
+#evo .hd{left:calc(var(--side) + var(--gl) - 16px);top:8svh}
+#evo .hd h2{font-size:clamp(28px,3.2vw,48px)}
+.rail{position:absolute;top:22svh;left:0;display:flex;gap:clamp(20px,3vw,56px);padding-left:calc(var(--side) + var(--gl) - 16px);will-change:transform}
+.card{flex:none}
+.card .im{height:52svh;overflow:hidden;background:#1a1a18}
+.card img{height:100%;width:auto;max-width:none}
+.card .d{display:flex;gap:1.2em;align-items:baseline;margin-top:18px}
+.card .d b{font-family:var(--serif);font-weight:500;font-size:clamp(20px,1.7vw,26px)}
+.card .d span{color:var(--gold);font-variant-numeric:tabular-nums;font-size:14px}
+.card p{color:#BDB5A7;font-size:15px;max-width:25em;margin-top:4px}
+
+/* 造型 */
+#form svg{overflow:visible;position:absolute;inset:0;width:100%;height:100%}
+#form .wr{position:absolute;left:62%;bottom:6svh;width:min(34svh,46vw);aspect-ratio:640/1479;transform:translateX(-50%)}
+#form .wr img{position:absolute;inset:0;width:100%;height:100%}#form.cmp .wr svg{z-index:2}#form.cmp #rl{stroke-width:7;filter:drop-shadow(0 0 6px #d6b88a)}#form.cmp #rf{fill:#8a8f84}#form.cmp .wr img{opacity:.85!important}
+#form .sky{position:absolute;inset:0;background:linear-gradient(#20221f 0,#3a3d38 42%,#6f716a 62%,#14140f 100%)}
+#form .far{position:absolute;left:0;right:0;bottom:0;width:100%;height:100%}
+
+/* 高度 */
+.rd{font-family:var(--serif);font-size:clamp(70px,min(8.6vw,17svh),140px);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.rd small{font-size:.2em;color:var(--gold);letter-spacing:.1em;margin-left:.3em;font-family:var(--sans);font-weight:300}
+.ctl{position:absolute;left:calc(var(--side) + var(--gl) - 16px);bottom:8svh;width:min(26vw,360px)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:none;margin:0;cursor:grab}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(90deg,var(--gold) var(--v,0%),#55504700 0,#5a554c var(--v,0%))}
+input[type=range]::-moz-range-track{height:2px;background:#5a554c}
+input[type=range]::-moz-range-progress{height:2px;background:var(--gold)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-12px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 7px #f6eee01f}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border:0;border-radius:50%;background:var(--ink)}
+.stops{display:flex;justify-content:space-between}
+.stops button{min-height:40px;font-size:14px;color:var(--dim);font-variant-numeric:tabular-nums;padding:0 4px}
+.stops button[aria-pressed=true]{color:var(--gold)}
+.cl{display:flex;justify-content:space-between;font-size:13px;letter-spacing:.12em;color:var(--dim);margin-bottom:-6px}.cl output{color:var(--ink);letter-spacing:.04em}
+#rot::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--gold) var(--v,0%),#5a554c var(--v,0%))}
+
+/* 步驟 */
+.steps li{display:block;font-family:var(--serif);font-size:clamp(19px,min(1.9vw,3.8svh),30px);line-height:1.75;color:#F6EEE0;opacity:.2;transition:opacity .35s}
+.steps li.on{opacity:1}
+.steps{text-shadow:0 0 18px #000,0 0 6px #000}
+
+/* 藥瓶 */
+.bt{position:absolute;inset:0}
+#bottle .eb,.say .eb{color:var(--gold);letter-spacing:.3em;font-size:14px;margin-bottom:.8em}
+.bglow{position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 58%,var(--bc,#3a3a30) 0,#060606 72%);opacity:.55;transition:background .6s}
+.bhd{position:absolute;left:0;right:0;top:9svh;text-align:center}.bhd .p{margin:.6em auto 0}
+.brow{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);display:flex;gap:clamp(8px,2.4vw,44px)}
+.bb{display:flex;flex-direction:column;align-items:center;width:min(17vw,24svh);transition:opacity .45s,transform .45s,filter .45s}
+.bb img{width:100%;height:auto;transition:transform .45s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 18px 24px #0009)}
+.bb .n{color:var(--gold);font-size:13px;letter-spacing:.14em;margin-top:14px}.bb b{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2vw,32px);letter-spacing:.2em;margin-right:-.2em}
+.bb:hover img{transform:translateY(-8px)}.brow.sel .bb{opacity:.32;filter:saturate(.6)}.brow.sel .bb.on{opacity:1;filter:none}.brow.sel .bb.on img{transform:translateY(-16px) scale(1.04)}
+.bdet{position:absolute;left:0;right:0;bottom:12svh;text-align:center;min-height:7em;opacity:0;transform:translateY(10px);transition:.45s}.bdet.on{opacity:1;transform:none}
+.bdet h3{font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.4vw,36px);letter-spacing:.3em;margin-right:-.3em}.bdet .l1{color:#E6DDCD;margin-top:.5em;font-size:17px}.bdet .l2{color:var(--dim);font-size:14px;margin-top:.4em}
+#bottle .foot{left:0;right:0;text-align:center;bottom:4svh}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:2em}
+.more{margin-top:1.4em;min-height:44px;padding:0 20px;border-radius:24px;border:1px solid #f6eee055;font-size:15px;color:var(--ink);background:#0006;display:inline-flex;align-items:center;gap:8px;transition:background .25s,border-color .25s}
+.more::after{content:'+';font-size:18px;color:var(--gold)}.more:hover{background:#f6eee01a;border-color:var(--gold)}
+.more.lt{color:var(--soot);border-color:#2422204d;background:#ffffff80}.more.lt::after{color:#8a6a3a}.more.lt:hover{background:#fff}
+#cmp::after{content:''}#cmp[aria-pressed=true]{border-color:var(--gold);background:#d6b88a26}
+.chips .more{margin-top:0}
+.steps.go button{font:inherit;color:inherit;text-align:left;padding:0}.steps.go button:hover{color:var(--gold)}
+.card{cursor:pointer}.card .im{transition:transform .35s}.card:hover .im{transform:translateY(-6px)}.card .d b::after{content:' +';color:var(--gold);font-family:var(--sans);font-weight:300}
+.ttl .cr{margin-top:2.4em;font-size:13px;letter-spacing:.16em;color:#BDB5A7}.ttl .cr .m{display:none}
+#ppb{left:auto;right:calc(var(--side) + 24px);transform:none;bottom:7svh;background:#ffffffb0}#ppb button{color:#57534B;text-shadow:none}#ppb button[aria-pressed=true]{color:var(--soot)}
+#sheet{position:fixed;z-index:70;right:0;top:0;bottom:0;width:min(440px,100%);background:#0d0c0bf5;border-left:1px solid #ffffff1a;transform:translateX(102%);transition:transform .45s cubic-bezier(.2,.8,.2,1);overflow:auto;padding:max(28px,env(safe-area-inset-top)) max(28px,env(safe-area-inset-right)) 40px 32px;overscroll-behavior:contain}
+#sheet.on{transform:none}#sheet h3{font-family:var(--serif);font-weight:500;font-size:28px;margin:30px 0 14px}#sheet p,#sheet li{color:#D8D0C2;font-size:15.5px;line-height:1.85}#sheet ol{list-style:decimal;padding-left:1.3em;margin-top:.5em}#sheet li{margin:.25em 0}
+#sheet .x{position:absolute;right:18px;top:18px;width:44px;height:44px;border-radius:50%;font-size:22px;color:var(--ink);background:#ffffff12}
+#sheet img{width:100%;height:auto;margin-top:8px;border-radius:2px}#sheet table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}#sheet td,#sheet th{border-top:1px solid #ffffff1c;padding:9px 4px;text-align:left;font-weight:400;color:#D8D0C2}#sheet th{color:var(--dim)}
+#sheet .go2{margin-top:22px}#sheet .note{margin-top:16px;display:block}
+.bt .txt .no{color:var(--gold);letter-spacing:.14em;font-size:15px}
+.bt .txt h2{font-size:clamp(60px,min(7.6vw,15svh),128px);letter-spacing:.14em;line-height:1.15}
+.bt .txt h3{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2.4vw,38px);letter-spacing:.14em;margin-top:.5em;padding-top:.6em;border-top:1px solid #d6b88a88;display:inline-block}
+.dots{position:absolute;bottom:6svh;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3;padding:2px 14px 6px;border-radius:30px;background:#0a0a0ad0}
+#bottle .dots{left:calc(var(--side) + var(--gl) - 30px);transform:none}#bottle .dots.rt{left:calc(100% - var(--side) - 24px - min(26vw,440px))}
+#scene .dots{left:calc(var(--side) + var(--gl) - 30px);transform:none}
+.dots button{min-width:44px;min-height:44px;padding:0 14px;font-size:15px;color:#b8b0a2;font-family:var(--serif);border-bottom:1px solid transparent;white-space:nowrap;text-shadow:0 0 12px #000}
+.dots button[aria-pressed=true]{color:var(--ink);border-color:var(--gold)}
+.foot{position:absolute;right:calc(var(--side) + 24px);bottom:2svh}#bottle .dots{bottom:7svh}
+
+/* 氣流 */
+.big{font-family:var(--serif);font-size:clamp(60px,8vw,128px);line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:.4em;color:var(--gold)}
+
+/* 拆解 */
+#parts,#parts .ov{background:#1b1815}
+#parts .pt{left:auto;right:calc(var(--side) + 24px);width:min(24vw,340px);max-width:none}
+.plist{position:absolute;right:calc(var(--side) + 24px);top:50%;transform:translateY(-50%);width:min(23vw,340px)}
+.plist button{display:grid;grid-template-columns:2.4em 1fr;text-align:left;width:100%;padding:.35svh 0;color:#F6EEE0;opacity:.34;transition:opacity .3s}
+.plist .n{color:var(--gold);font-variant-numeric:tabular-nums;font-size:14px;line-height:min(32px,4.6svh)}
+.plist b{font-family:var(--serif);font-weight:500;font-size:min(20px,2.9svh);line-height:min(32px,4.6svh)}
+.plist em{grid-column:2;font-style:normal;font-size:14.5px;color:#CFC7B9;max-height:0;overflow:hidden;transition:max-height .4s}
+.plist .on{opacity:1}.plist .on em{max-height:4em}
+.plist button:hover{opacity:.85}
+
+/* 人 */
+#people{background:#E3DFDC;color:var(--soot)}
+#people .txt{max-width:min(25vw,400px)}#people video,.sc video{will-change:transform}
+#people .txt .p{color:#4A463F;font-weight:400}
+.sc{position:absolute;inset:0}
+#scene .txt{top:auto;bottom:18svh;transform:none;max-width:min(30vw,480px)}#sct{white-space:pre-line}
+.grad{position:absolute;inset:0;background:linear-gradient(90deg,#000000b8,#0000 52%),linear-gradient(0deg,#000000b0,#0000 40%)}
+
+/* 收尾 */
+#fin .unit,#fin .mv{--pw:min(25svh,40vw)}
+#fin .unit{bottom:20svh}#fin .mv.g{bottom:calc(20svh + var(--pw)*2.273)}#fin .mv.k{bottom:calc(20svh + var(--pw)*2.723)}
+#fin .unit.g{left:calc(38% - var(--pw)/2)}#fin .unit.k{left:calc(62% - var(--pw)/2)}
+#fin .mv.g{left:calc(38% - var(--pw)*.6035)}#fin .mv.k{left:calc(62% - var(--pw)*.6035)}
+#fin .unit,#fin .mv{transition:opacity .5s,filter .5s}
+#fin .col{position:absolute;left:0;right:0;bottom:calc(7svh + 52px);text-align:center;color:#CFC7B9;font-size:15px}
+
+#snd{position:fixed;z-index:60;right:max(20px,env(safe-area-inset-right));top:max(16px,env(safe-area-inset-top));display:flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border-radius:24px;background:#0a0a0ab0;font-size:14px;color:#F6EEE0;border:1px solid #f6eee033}
+#snd i{display:flex;gap:2px;align-items:flex-end;height:14px}#snd i b{width:2px;height:4px;background:var(--gold);border-radius:1px}
+#snd[aria-pressed=true] i b{animation:eq 1s ease-in-out infinite alternate}#snd i b:nth-child(2){animation-delay:-.4s!important}#snd i b:nth-child(3){animation-delay:-.7s!important}
+@keyframes eq{to{height:14px}}
+#app{background:#060606}.apbg{position:absolute;inset:0;background:radial-gradient(40% 60% at 78% 60%,#2a2c26,#060606 70%);transition:background 1.2s}#app.run .apbg{background:radial-gradient(42% 62% at 78% 58%,#3b4134,#060606 72%)}
+.pw{position:absolute;left:47%;top:50%;transform:translate(-50%,-50%);width:calc(300px*var(--ps,1));height:calc(620px*var(--ps,1))}
+.phone{width:300px;height:620px;transform:scale(var(--ps,1));transform-origin:0 0;border-radius:44px;background:#111;padding:10px;box-shadow:0 30px 60px #000c,inset 0 0 0 1.5px #ffffff26}
+.scr{position:relative;height:100%;border-radius:35px;background:#F4F1EB;color:#24221E;font-family:var(--sans);overflow:hidden;font-size:13px}
+.sbar{display:flex;justify-content:space-between;padding:12px 26px 0;font-size:11.5px;font-weight:500}.bt_{width:20px;height:9px;border:1px solid #24221E;border-radius:3px;padding:1px}.bt_ i{display:block;height:100%;width:80%;background:#24221E;border-radius:1px}
+.vw{position:absolute;inset:34px 0 58px;padding:14px 18px 10px;display:flex;flex-direction:column;opacity:0;transform:translateX(24px);pointer-events:none;transition:opacity .35s,transform .35s}.vw.on{opacity:1;transform:none;pointer-events:auto}.vw.lft{transform:translateX(-24px)}
+.ah{display:flex;align-items:center;gap:7px}.ah svg{width:24px;fill:#5d7350}.ah b{font-family:var(--serif);font-weight:500;font-size:17px;letter-spacing:.2em}.cn{margin-left:auto;font-size:10.5px;color:#57534B;display:flex;align-items:center;gap:5px}.cn i{width:6px;height:6px;border-radius:50%;background:#7fa36b}
+.hi{font-family:var(--serif);font-size:19px;margin-top:16px}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.who button{display:flex;flex-direction:column;align-items:flex-start;padding:10px 12px;border-radius:14px;background:#fff;border:1.5px solid #0000;text-align:left}.who b{font-weight:500;font-size:14px}.who span{font-size:11px;color:#7a746a}.who button[aria-pressed=true]{border-color:#5d7350;background:#f6f9f2}
+.lb{font-size:11.5px;color:#7a746a;margin-top:14px;letter-spacing:.1em}
+.pk{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}.pk button{display:grid;grid-template-columns:30px 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:center;padding:7px 9px;border-radius:12px;background:#fff;border:1.5px solid #0000;text-align:left}.pk img{grid-row:span 2;width:30px;height:auto}.pk b{font-family:var(--serif);font-weight:500;font-size:13.5px}.pk span{font-size:10.5px;color:#7a746a}.pk button[aria-pressed=true]{border-color:#5d7350;background:#f6f9f2}
+.pri{margin-top:auto;min-height:48px;border-radius:24px;background:#5d7350;color:#fff;font-size:15px;letter-spacing:.1em;box-shadow:0 8px 18px #5d735055;transition:background .3s,opacity .3s}.pri:disabled{background:#b9c2b0;box-shadow:none;opacity:.8}
+.top{display:flex;align-items:center;gap:6px;min-height:34px}.top b{font-weight:500;font-size:15px}.bk{width:34px;height:34px;font-size:26px;line-height:1;color:#24221E;margin-left:-8px}
+.chk{margin-top:10px;display:flex;flex-direction:column;gap:8px}.chk button{display:flex;gap:12px;align-items:center;width:100%;padding:12px;border-radius:14px;background:#fff;text-align:left;border:1.5px solid #0000;transition:border-color .25s}.chk i{flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid #b9b2a6;display:grid;place-items:center;transition:.25s}.chk b{display:block;font-weight:500;font-size:14px}.chk em{font-style:normal;font-size:11.5px;color:#7a746a}
+.chk .y{border-color:#5d7350}.chk .y i{background:#5d7350;border-color:#5d7350}.chk .y i::after{content:'✓';color:#fff;font-size:13px}
+.tip{font-size:11px;color:#8a8478;margin-top:12px;line-height:1.6}
+.go3{position:relative;width:190px;height:190px;margin:14px auto 0}.go3 svg{position:absolute;inset:0;transform:rotate(-90deg)}.go3 circle{fill:none;stroke-width:4}.tr{stroke:#e2dbcf}.pg{stroke:#5d7350;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:0;transition:stroke-dashoffset .9s linear}
+.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.tm{font-family:var(--serif);font-size:42px;font-variant-numeric:tabular-nums;letter-spacing:.02em}.rs{font-size:11.5px;color:#5d7350;letter-spacing:.2em}
+.story{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 12px;border-radius:14px;background:#fff}.story b{display:block;font-weight:500;font-size:12px;color:#7a746a}.story em{font-style:normal;font-size:12.5px}.pl{flex:none;width:34px;height:34px;border-radius:50%;background:#24221E;display:grid;place-items:center}.pl i{width:0;height:0;border-left:9px solid #fff;border-top:6px solid #0000;border-bottom:6px solid #0000;margin-left:2px}.pl.on i{width:9px;height:11px;border:0;border-left:3px solid #fff;border-right:3px solid #fff;margin:0}
+.eq{margin-left:auto;display:flex;gap:2px;align-items:flex-end;height:12px}.eq b{width:2px;height:3px;background:#5d7350}.story.on .eq b{animation:eq .9s ease-in-out infinite alternate}.story.on .eq b:nth-child(2){animation-delay:-.3s}.story.on .eq b:nth-child(3){animation-delay:-.6s}
+.mu{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding:10px 12px;border-radius:14px;background:#fff;font-size:12.5px;cursor:pointer}.mu input{position:absolute;opacity:0}.mu i{width:38px;height:22px;border-radius:11px;background:#cfc8bb;position:relative;transition:.25s}.mu i::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.25s}.mu input:checked+i{background:#5d7350}.mu input:checked+i::after{left:19px}.mu input:focus-visible+i{outline:2px solid #5d7350;outline-offset:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}.sb{min-height:46px;border-radius:23px;background:#fff;border:1.5px solid #d9d2c4;font-size:14px;color:#24221E}
+.ok{width:64px;height:64px;border-radius:50%;background:#5d7350;color:#fff;font-size:30px;display:grid;place-items:center;margin:18px auto 0}.dn{text-align:center;font-family:var(--serif);font-size:24px;margin-top:12px}.ds{text-align:center;color:#7a746a;font-size:12.5px;margin-top:2px}
+.cl2{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:6px}.cl2 li{padding:10px 12px;border-radius:12px;background:#fff;font-size:13px;counter-increment:c}.cl2 li::before{content:counter(c);display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#efe9de;font-size:11px;margin-right:8px}.cl2{counter-reset:c}
+.lg{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:6px}.lg li{padding:11px 12px;border-radius:12px;background:#fff;font-size:12.5px;display:flex;justify-content:space-between}.lg li span{color:#7a746a}.lg .em{background:none;color:#8a8478;padding:20px 4px;line-height:1.7}
+.tab{position:absolute;left:0;right:0;bottom:0;height:58px;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e6e0d5;background:#F4F1EB;padding-bottom:6px}.tab button{font-size:12px;color:#8a8478}.tab button[aria-pressed=true]{color:#24221E;font-weight:500}
+#app.run .ap-u .amv{opacity:1}#app.pz .ap-u .amv{opacity:0}
+.ff{position:absolute;left:calc(47% - 110px);width:220px;bottom:2.2svh;font-size:12.5px;color:var(--dim);text-decoration:underline;text-underline-offset:4px;min-height:36px;opacity:0;pointer-events:none;transition:opacity .3s}#app.run .ff{opacity:1;pointer-events:auto}
+.ux{position:absolute;left:calc(var(--side) + var(--gl) - 16px);bottom:7svh}
+.ap-u{position:absolute;--pw:min(29svh,24vw);width:var(--pw);left:calc(78% - var(--pw)/2);bottom:5svh}.ap-u img{width:100%;height:auto;display:block}.ap-u .on{position:absolute;inset:0;opacity:0;-webkit-mask:linear-gradient(#000 0 var(--m,0%),#0000 calc(var(--m,0%) + 6%));mask:linear-gradient(#000 0 var(--m,0%),#0000 calc(var(--m,0%) + 6%));transition:opacity .4s}
+.amv{position:absolute;width:121.9%;left:-10.6%;bottom:98.4%;mix-blend-mode:screen;opacity:0;transition:opacity 1.6s}
+.ap-t{max-width:min(24vw,400px)}.ap-n{position:absolute;right:calc(var(--side) + 24px);bottom:3svh}
+#height .txt{top:8svh;transform:none}#height .txt .more{margin-top:1em}#height .ctl{bottom:6svh} /* 目錄 */
+#nav{position:fixed;right:max(14px,env(safe-area-inset-right));top:50%;transform:translateY(-50%);z-index:50;mix-blend-mode:difference}
+#nav a{display:flex;justify-content:flex-end;align-items:center;gap:10px;height:30px;text-decoration:none;color:#fff;font-size:13px;min-width:30px}
+#nav a::after{content:"";width:12px;height:1px;background:#fff;opacity:.45;transition:width .3s,opacity .3s}
+#nav a span{opacity:0;transform:translateX(6px);transition:.25s;white-space:nowrap}
+#nav a:hover span,#nav a:focus-visible span{opacity:1;transform:none}
+#nav a.on::after{width:26px;opacity:1}
+#bar{display:none}
+
+/* 一般段落 */
+.sec{padding:clamp(80px,14vh,160px) calc(var(--side) + 12px);position:relative;background:var(--bg)}
+.sec h2{font-size:clamp(30px,3.6vw,54px)}
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));column-gap:72px;margin-top:40px}
+.spec div{display:grid;grid-template-columns:7em 1fr;gap:16px;padding:15px 0;border-top:1px solid #ffffff1c}
+.spec dt{color:var(--dim)}.spec dd{font-weight:400;font-variant-numeric:tabular-nums}
+.film{width:100%;max-width:1280px;aspect-ratio:16/9;background:#000;margin:40px auto 0}
+footer{padding:80px 24px 64px;text-align:center}
+footer svg{width:92px;display:block;margin:0 auto 28px;fill:var(--ink)}
+footer .b{font-family:var(--serif);font-size:38px;letter-spacing:.2em;margin-right:-.2em}
+footer p{color:var(--dim);margin-top:10px}
+
+@media (max-width:760px),(max-aspect-ratio:4/5){
+ .txt,.txt.r{left:20px;right:20px;max-width:none;top:auto;bottom:9svh;transform:none}
+ .ttl{top:12svh}.ttl h1{font-size:54px}.ttl .tag{margin-top:.6em}.ttl .en{margin-top:1em}
+ .cue{bottom:2svh;color:#2a2722;text-shadow:none}.cue i{display:none}
+ canvas.seq,#parts canvas.seq{left:0;width:100%;-webkit-mask:none;mask:none}
+ #parts .pt{left:20px;right:20px;width:auto}
+ .a .pic.side{left:0;bottom:30svh;-webkit-mask:linear-gradient(0deg,#0000,#000 20%);mask:linear-gradient(0deg,#0000,#000 20%)}
+ #people .fill{height:66svh;bottom:auto;object-position:42% 50%}
+ #bottle .dots,#bottle .dots.rt,#scene .dots{left:12px}
+ #snd{padding:0 12px}#snd span{display:none}
+ .unit.g,#fin .unit.g{left:calc(26% - var(--pw)/2)}.unit.k,#fin .unit.k{left:calc(74% - var(--pw)/2)}
+ .mv.g,#fin .mv.g{left:calc(26% - var(--pw)*.6035)}.mv.k,#fin .mv.k{left:calc(74% - var(--pw)*.6035)}
+ .unit{bottom:8svh}.mv.g{bottom:calc(8svh + var(--pw)*2.273)}.mv.k{bottom:calc(8svh + var(--pw)*2.723)}
+ .unit,.mv{--pw:min(24svh,50vw)}
+ .card .im{height:auto;width:78vw}.card .im img{width:100%;height:auto;max-height:50svh;object-fit:cover}
+ .card{width:78vw}
+ #form .wr{left:50%;bottom:27svh;width:min(22svh,50vw)}
+ .ctl{left:20px;bottom:6svh;width:calc(100vw - 40px)}
+ #height .txt{top:7svh;bottom:auto}.ctl{z-index:2}
+ #height .txt .p{display:none}
+ .steps li{line-height:1.5}
+ .bt .txt{top:8svh;bottom:auto}.bt .fill{top:34%;height:66%;-webkit-mask:linear-gradient(#0000,#000 14%);mask:linear-gradient(#0000,#000 14%)}.bt:nth-child(odd) .fill{object-position:88% 50%!important}.bt:nth-child(even) .fill{object-position:7% 50%!important}
+ .dots{width:calc(100vw - 24px);justify-content:center;gap:0}
+ .dots button{padding:0 9px}
+ .plist{left:20px;right:20px;width:auto;top:auto;bottom:6svh;transform:none}
+ .plist li:not(.cur){display:none}
+ .plist em,.plist .on em{max-height:none;font-size:16px}.plist b{font-size:30px;line-height:40px}.plist .n{line-height:40px}
+ #people .txt{bottom:11svh;max-width:none}
+ #scene .txt{bottom:15svh}
+ .foot{left:20px;right:20px;bottom:1.6svh;color:#F6EEE0;text-shadow:0 0 8px #000,0 0 3px #000}
+ .a.lt .pic.half{right:0;bottom:65%}.a.lt .pic.half+.half{left:0;top:35%;bottom:30%}
+ .unit,.mv{--pw:min(20svh,44vw)}.ttl .cr{text-shadow:0 0 10px #000,0 0 4px #000}.ttl{top:3.5svh;transform:translate(-50%,0)}.ttl h1{font-size:min(50px,7svh)}
+ .a .pic.sd{left:0;bottom:calc(9svh + 200px);background-position:78% 50%!important;-webkit-mask:linear-gradient(0deg,#0000,#000 18%);mask:linear-gradient(0deg,#0000,#000 18%)}
+ .a .pic.by{bottom:calc(9svh + 200px);background-position:44% 50%!important}
+ #height .txt{top:6svh!important}#height canvas.seq{top:calc(6svh + 150px);height:calc(100% - 6svh - 150px - 200px)}
+ #app .ap-t{top:5svh;bottom:auto}#app .ap-t .p,#app .ap-t .note{display:none}.ux{left:20px;right:auto;bottom:auto;top:calc(5svh + 96px);margin:0;min-height:38px;font-size:13.5px}.ff{left:4vw;width:46vw;bottom:0}.pw{left:4vw!important;top:auto!important;bottom:5svh;transform:none!important}.ap-u{--pw:min(13svh,17vw)!important;left:auto!important;right:6vw;bottom:7svh!important}.ctl{bottom:3svh}
+ #dock .txt,#wash .txt{bottom:5svh}.steps{margin-top:.7em!important}.steps li{font-size:18px;line-height:1.55}
+ #flow .f2{bottom:4svh}#flow .f1{bottom:12svh}
+ #fogv .fill,.sc .fill{height:66svh;bottom:auto;-webkit-mask:linear-gradient(0deg,#0000,#000 22%);mask:linear-gradient(0deg,#0000,#000 22%)}
+ #fogv .txt{bottom:9svh}
+ .sc{background:#060606}#scene .grad{display:none}#scene .txt{bottom:17svh;max-width:none} #form .wr{width:min(16svh,40vw);bottom:calc(9svh + 200px)}.bt .fill{top:40%;height:60%}
+ #fin .plate{object-position:50% 100%}
+ .brow{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;top:47%}.bb{width:min(36vw,19svh)}.bb .n{margin-top:6px}.bb b{font-size:20px}
+ .bhd{top:6svh}.bhd .p{display:none}.bdet{bottom:5svh}.bb{width:min(36vw,16.5svh)}.brow{top:45%}#bottle .foot{bottom:1.2svh}.bdet .l1{font-size:15px}
+ .ttl .cr{margin-top:1.2em;font-size:12px;letter-spacing:.08em}.ttl .cr span{display:none}.ttl .cr .m{display:inline}
+ #ppb{right:auto;left:12px;width:auto!important;bottom:auto;top:calc(66svh - 58px)}
+ #sheet{top:auto;height:min(78svh,640px);width:100%;border-left:0;border-top:1px solid #ffffff1a;border-radius:18px 18px 0 0;transform:translateY(102%)}
+ #nav{display:none}
+ #bar{display:block;position:fixed;right:0;top:0;width:2px;height:100%;z-index:50;transform-origin:top;background:var(--gold)}
+ .spec div{grid-template-columns:5.5em 1fr}
+}
+@media (max-height:480px) and (min-aspect-ratio:4/5){.cue,#colt{display:none}.card .im{height:42svh}#scene .txt{bottom:30svh}#parts canvas.seq{width:65%}.a.lt .p{display:none}#height .txt .p,#height .txt .more{display:none}#height .rd{font-size:min(17svh,100px)}#height .ctl{bottom:4svh}.bhd{top:3svh}.bhd .p,.bhd .eb,#bottle .foot{display:none}.bhd h2{font-size:26px}.brow{top:52%}.bb{width:min(14vw,21svh)}.bb .n{margin-top:4px}.bdet{bottom:2svh;min-height:0}.bdet .l2{display:none}.bdet h3{font-size:22px}}
+@media (max-aspect-ratio:4/5) and (max-height:700px){#hero .unit,#hero .mv{--pw:min(17svh,40vw)}}
+@media (prefers-reduced-motion:reduce){.cue i,#snd i b{animation:none!important}}
+.appf{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:5;background:#F4F1EB;pointer-events:none}#app.live .appf{pointer-events:auto}.appgo{position:absolute;inset:0;z-index:6;border:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.5));color:#fff;font:inherit;font-size:14px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:30px;cursor:pointer}#app.live .appgo{display:none}#apff{display:none!important}@media (pointer:fine){.appf{pointer-events:auto}.appgo{display:none}}
+</style>
+
+<div id="track"><div id="stage">
+
+<section class="ch" id="hero" aria-label="岫本">
+ <img class="fill plate" src="img/plate.webp" alt="">
+ <div class="unit g"><img src="img/green.webp" width="640" height="1479" alt="岫本綠色款：霧面鼠尾草綠機身、香檳金收腰、霧面導流罩"></div>
+ <div class="unit k"><img src="img/black.webp" width="640" height="1767" alt="岫本黑色款：霧面墨黑機身，伸縮管拉高一段"></div>
+ <video class="mv g" src="v/mist.mp4" muted playsinline loop autoplay aria-hidden="true"></video>
+ <video class="mv k" src="v/mist.mp4" muted playsinline loop autoplay aria-hidden="true"></video>
+ <div class="ttl"><h1>岫本</h1><p class="en">XIUBEN</p><p class="tag">雲，在家裡出岫</p><p class="cr">設計　林煜宸<span>　|　</span><br class="m">長庚大學 工業設計學系 三年級</p></div>
+ <div class="cue">往下滑<i></i></div>
+</section>
+
+<section class="ch" id="why" aria-label="設計動機">
+ <div class="pale"></div>
+ <div class="say"><p class="eb">設計理念</p><h2>以現代科技，<br>重現草本調理的日常</h2><p>結合中藥配方與微米霧化，搭配音樂、本草故事與 APP 互動，<br>讓居家養護的十分鐘，成為值得期待的日常。</p><div class="chips"><button class="more lt" data-k="c1">中藥配方</button><button class="more lt" data-k="c2">微米霧化</button><button class="more lt" data-k="c3">音樂・本草故事・APP</button></div></div>
+ <div class="q"><h2>孩子和大人坐高不同，怎麼共用一台？</h2></div>
+ <div class="a lt"><div class="pic half" style="background-image:url(img/boy.webp);background-position:47% 30%"></div><div class="pic half" style="background-image:url(img/woman.webp);background-position:47% 20%"></div><div class="cap"><h2>把機身拉高就好</h2><p class="p">三段高度，導流罩再轉向口鼻。</p><button class="more lt" data-k="q1">看細節</button></div></div>
+ <div class="q"><h2>倒藥的時候，灑出來怎麼辦？</h2></div>
+ <div class="a" style="background:#060606"><div class="pic sd" style="background-image:url(img/b1.webp);background-position:100% 50%"></div><div class="txt"><h2>不用倒藥</h2><p class="p">藥液收在小瓶裡，一次旋入一瓶。</p><button class="more" data-k="q2">看細節</button></div></div>
+ <div class="q"><h2>藥渣卡住了，要怎麼洗？</h2></div>
+ <div class="a" style="background:#060606"><div class="pic side" style="background-image:url(img/wash.webp)"></div><div class="txt"><h2>碰到藥的，整組拔出來</h2><p class="p">杯身可以泡水刷洗，棉芯換新的。</p><button class="more" data-k="q3">看拆洗步驟</button></div></div>
+ <div class="q"><h2>一定要戴面罩嗎？</h2></div>
+ <div class="a" style="background:#E3DFDC"><div class="pic by" style="background-image:url(img/boy.webp);background-position:30% 50%"></div><div class="txt r lit"><h2>不用，<br>湊近就好</h2><p class="p">臉和罩口留一點距離，大約五公分。</p><button class="more lt" data-k="q4">看細節</button></div></div>
+</section>
+
+<section class="ch" id="evo" aria-label="設計演變">
+ <div class="abs hd"><h2>從第一台，改到現在</h2></div>
+ <div class="rail">
+  <div class="card" role="button" tabindex="0" data-k="e1"><div class="im"><img src="img/h1.webp" alt="霧杯第一版渲染圖"></div><div class="d"><span>11 月 5 日</span><b>霧杯</b></div><p>最早的直筒機身，藥水從側面倒進去。</p></div>
+  <div class="card" role="button" tabindex="0" data-k="e2"><div class="im"><img src="img/h2.webp" alt="11 月 8 日的岫本主機渲染圖"></div><div class="d"><span>11 月 8 日</span><b>岫本</b></div><p>霧化片移到頂部，導流罩改成半透明霧面。</p></div>
+  <div class="card" role="button" tabindex="0" data-k="e3"><div class="im"><img src="img/h3.webp" alt="六款導流罩白模"></div><div class="d"><span>11 月 15 日</span><b>六款導流罩</b></div><p>量過才知道，換罩只能讓出口差約 10 公分，所以高度改由機身負責。</p></div>
+  <div class="card" role="button" tabindex="0" data-k="e4"><div class="im"><img src="img/h4.webp" alt="出岫、沙漏、莖三個造型，收合與拉高"></div><div class="d"><span>11 月 15 日</span><b>出岫、沙漏、莖</b></div><p>三個造型方向。倒藥改成小瓶，倒過來旋入。</p></div>
+  <div class="card" role="button" tabindex="0" data-k="e5"><div class="im"><img src="img/h5.webp" alt="選定的出岫造型，綠色與黑色"></div><div class="d"><span>11 月 15 日</span><b>選定出岫</b></div><p>先定一條連續的輪廓，再切出底座、金環和導流罩。</p></div>
+  <div class="card" role="button" tabindex="0" data-k="e6"><div class="im"><img src="img/h6.webp" alt="目前的岫本，綠色收合、黑色拉高"></div><div class="d"><span>11 月 24 日</span><b>現在的岫本</b></div><p>收合縮到 250 mm，藥杯改成可以整組拔出來洗。</p></div>
+ </div>
+</section>
+
+<section class="ch" id="form" aria-label="造型由來">
+ <div class="sky"></div>
+ <svg class="far" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 900V560C160 520 260 470 360 430S520 360 600 400S760 520 860 500S1080 360 1200 330S1440 470 1600 500V900Z" fill="#4b4e48"/><path d="M0 900V680C180 650 300 600 420 560S660 620 800 640S1120 520 1280 500S1500 600 1600 620V900Z" fill="#2c2e2a"/></svg>
+ <div class="wr"><svg viewBox="0 0 640 1479" aria-hidden="true"><path id="rf" fill="#121310"/><path id="rl" fill="none" stroke="#D6B88A" stroke-width="3"/></svg><img src="img/green.webp" alt="岫本綠色款"></div>
+ <div class="txt t1"><h2>岫，是山中<br>出雲的地方</h2></div>
+ <div class="txt t2"><h2>機身的側線，<br>就是一道山稜</h2><p class="p">從底座一路收到罩口。雲從山口出來，霧從罩口出來。</p><button class="more" id="cmp" aria-pressed="false">疊上山稜線</button></div>
+</section>
+
+<section class="ch" id="height" aria-label="三段高度">
+ <canvas class="seq" role="img" aria-label="岫本機身由收合拉高到最高"></canvas>
+ <div class="txt"><div class="rd"><span id="mm">250</span><small>mm</small></div><h2 style="font-size:clamp(24px,2.5vw,40px);margin-top:.5em">一拉，換個高度</h2><p class="p">三個定位點，拉到就卡住；導流罩也能轉一圈，對準口鼻。</p><button class="more" data-k="h1">怎麼卡住的</button></div>
+ <div class="ctl"><div class="cl"><span>高度</span></div><input type="range" id="lift" min="0" max="100" step="10" value="0" aria-label="機身拉高幾毫米"><div class="stops"><button data-v="0">收合</button><button data-v="50">拉高 50</button><button data-v="100">拉高 100</button></div><div class="cl" style="margin-top:14px"><span>導流罩方向</span><output id="dgo">朝前</output></div><input type="range" id="rot" min="0" max="345" step="15" value="0" aria-label="導流罩轉幾度"></div>
+</section>
+
+<section class="ch" id="dock" aria-label="一瓶一次">
+ <canvas class="seq" role="img" aria-label="藥瓶開蓋、倒轉、旋入機身，再套上導流罩"></canvas>
+ <div class="txt"><h2>一瓶，<br>一次的份量</h2><ol class="steps go" data-c="dock" data-t="1.2,3,5.2,8,9.3" style="margin-top:1.2em"><li><button>轉開瓶蓋</button></li><li><button>倒過來</button></li><li><button>旋入瓶座</button></li><li><button>套上導流罩</button></li><li><button>燈亮，開始</button></li></ol></div>
+</section>
+
+<section class="ch" id="bottle" aria-label="四款藥瓶">
+ <div class="bglow"></div>
+ <div class="bhd"><p class="eb">四款藥瓶</p><h2>一瓶，一種日常</h2><p class="p">點藥瓶，看它的功效。</p></div>
+ <div class="brow">
+  <button class="bb" data-i="0"><img src="img/bt1.webp" alt="No.01 清嵐，綠色藥瓶"><span class="n">No.01</span><b>清嵐</b></button>
+  <button class="bb" data-i="1"><img src="img/bt2.webp" alt="No.02 玉容，玫瑰棕藥瓶"><span class="n">No.02</span><b>玉容</b></button>
+  <button class="bb" data-i="2"><img src="img/bt3.webp" alt="No.03 潤金，琥珀色藥瓶"><span class="n">No.03</span><b>潤金</b></button>
+  <button class="bb" data-i="3"><img src="img/bt4.webp" alt="No.04 棲月，蜂蜜金藥瓶"><span class="n">No.04</span><b>棲月</b></button>
+ </div>
+ <div class="bdet" aria-live="polite"><h3></h3><p class="l1"></p><p class="l2"></p></div>
+ <p class="note foot">配方概念示意，非療效宣稱</p>
+</section>
+
+<section class="ch" id="app" aria-label="手機操作">
+ <div class="apbg"></div>
+ <div class="txt ap-t"><p class="eb">APP</p><h2>手機一按，<br>霧就出來</h2><p class="p">選誰要用，掃瓶蓋上的 QR code，確認三件事就開始。十分鐘裡有小岫陪著呼吸，用滿十分鐘才算一次。紀錄、成就、補貨，也都在這裡。</p><p class="note" style="margin-top:1em">這是真的 APP，直接在手機畫面上點點看。按下開始，旁邊的岫本就會出霧。</p></div>
+ <div class="pw"><div class="phone"><div class="scr">
+  <div class="sbar"><span>21:00</span><span class="bt_"><i></i></span></div>
+  <div class="vw on" data-v="home">
+   <div class="ah"><svg viewBox="0 0 100 64" aria-hidden="true"><path d="M100.0 0.7L96.2 4.0L91.6 7.2L87.2 9.4L80.1 11.7L75.8 12.5L69.5 13.2L53.3 13.0L49.0 13.3L42.4 14.4L38.1 15.7L33.1 17.8L28.8 20.1L25.3 22.5L18.0 28.8L12.5 35.5L8.9 41.0L7.9 43.2L12.3 39.4L18.8 35.0L26.1 31.5L32.8 29.3L37.8 28.2L44.1 27.4L60.6 27.3L65.5 26.8L70.7 25.7L77.5 23.3L82.3 20.9L85.9 18.5L91.6 13.5L96.5 7.2ZM90.8 23.3L83.4 29.3L78.0 32.6L72.8 35.0L65.2 37.4L57.3 38.6L36.5 39.0L30.7 39.8L22.8 42.1L17.9 44.5L16.6 45.5L15.8 45.6L8.9 51.1L4.4 56.0L4.1 56.8L1.9 59.7L0.0 63.3L3.3 60.5L6.8 58.1L11.4 55.7L17.7 53.5L22.9 52.4L30.2 51.9L34.6 51.9L41.1 52.4L51.1 52.3L58.1 51.0L65.2 48.5L73.1 44.2L79.1 39.4L82.6 36.0L82.6 35.6L87.0 30.3L89.2 26.6Z"/></svg><b>岫本</b><span class="cn"><i></i>已連線・電量 82%</span></div>
+   <p class="hi">晚安，今天誰要用？</p>
+   <div class="who"><button aria-pressed="true" data-w="0"><b>孩子</b><span>收合 250</span></button><button data-w="1"><b>大人</b><span>拉高 50</span></button></div>
+   <p class="lb">今天用哪一瓶</p>
+   <div class="pk"><button aria-pressed="true" data-i="0"><img src="img/bt1.webp" alt=""><b>清嵐</b><span>宣竅清息</span></button><button data-i="1"><img src="img/bt2.webp" alt=""><b>玉容</b><span>養榮潤色</span></button><button data-i="2"><img src="img/bt3.webp" alt=""><b>潤金</b><span>潤肺生津</span></button><button data-i="3"><img src="img/bt4.webp" alt=""><b>棲月</b><span>寧心安神</span></button></div>
+   <button class="pri" data-to="prep">準備開始</button>
+  </div>
+  <div class="vw" data-v="prep">
+   <div class="top"><button class="bk" data-to="home" aria-label="返回">‹</button><b>開始前，確認三件事</b></div>
+   <ol class="chk"><li><button><i></i><span><b>藥瓶旋入瓶座</b><em id="ck1">No.01 清嵐</em></span></button></li><li><button><i></i><span><b>機身高度</b><em id="ck2">孩子：收合 250 mm</em></span></button></li><li><button><i></i><span><b>罩口對準口鼻</b><em>留大約 5 公分，不用貼著臉</em></span></button></li></ol>
+   <p class="tip">機器不會偵測這些，所以在這裡請你確認一次。</p>
+   <button class="pri" id="apgo" data-to="run" disabled>三件都好了，開始</button>
+  </div>
+  <div class="vw" data-v="run">
+   <div class="top"><b id="rnm">清嵐・孩子</b></div>
+   <div class="go3"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" class="tr"/><circle cx="60" cy="60" r="54" class="pg"/></svg><div class="rc"><span class="tm">10:00</span><span class="rs">出霧中</span></div></div>
+   <div class="story"><button class="pl" aria-label="播放本草故事"><i></i></button><span><b>本草故事</b><em id="rst">清嵐・一呼一吸，如入山林</em></span><span class="eq" aria-hidden="true"><b></b><b></b><b></b></span></div>
+   <label class="mu"><span>背景音樂</span><input type="checkbox" checked><i></i></label>
+   <div class="two"><button class="sb" id="appz">暫停</button><button class="sb" id="apend">結束</button></div>
+  </div>
+  <div class="vw" data-v="done">
+   <div class="ok" aria-hidden="true">✓</div>
+   <p class="dn">完成了</p><p class="ds" id="dsm">清嵐・孩子・10 分鐘</p>
+   <p class="lb">收起來前</p>
+   <ol class="cl2"><li>拔下導流罩</li><li>取出藥杯，泡水刷洗</li><li>換一支新棉芯</li></ol>
+   <button class="pri" data-to="home" id="apfin">好，收起來了</button>
+  </div>
+  <div class="vw" data-v="log">
+   <div class="top"><b>使用紀錄</b></div>
+   <ul class="lg"><li class="em">還沒有紀錄。用完一次，這裡就會記下來。</li></ul>
+  </div>
+  <nav class="tab"><button aria-pressed="true" data-to="home">今天</button><button data-to="log">紀錄</button></nav>
+ 
+  <iframe class="appf" src="https://yuchenlin1026.github.io/xiuben-app/Home.html" title="岫本 APP" allow="camera; autoplay" loading="lazy"></iframe><button class="appgo" type="button">點一下，開始操作 APP</button>
+ </div></div></div>
+ <button class="ff" id="apff">示範：快轉到結束</button>
+ <button class="more ux" data-k="ux">介面怎麼想的</button>
+ <div class="ap-u"><img class="off" src="img/green_off.webp" alt="岫本綠色款，未開機"><img class="on" src="img/green.webp" alt=""><video class="amv" src="v/mist.mp4" muted playsinline loop preload="none" aria-hidden="true"></video></div>
+ <p class="note ap-n">示意畫面</p>
+</section>
+
+<section class="ch" id="flow" aria-label="氣流與出霧">
+ <canvas class="seq" role="img" aria-label="機身變透明，氣流從腳環往上走到罩口"></canvas>
+ <div class="txt f1"><ol class="steps"><li>風從腳環進來</li><li>穿過伸縮管</li><li>帶著霧，繞過藥瓶</li><li>從罩口出去</li></ol></div>
+ <div class="txt f2"><p class="big">99.7<small>%</small></p><p class="p">模擬的霧滴，有 99.7% 從罩口送出，一半以上在 2.2 秒內離開。</p><p class="note" style="margin-top:1.2em;max-width:24em">電腦氣流模擬，5 µm 霧滴，簡化成對稱剖面計算，還沒有實測。</p><button class="more" data-k="f1">看模擬數據</button></div>
+ <div class="abs" id="fogv" style="inset:0;background:#060606"><video class="fill" src="v/fog.mp4" muted playsinline loop preload="metadata" aria-hidden="true"></video><div class="txt"><h2>霧，順著風<br>往上走</h2><p class="p">先滿出罩口，再被風帶起來，越高越淡。</p></div></div>
+</section>
+
+<section class="ch" id="parts" aria-label="十個零件">
+ <canvas class="seq" role="img" aria-label="岫本拆開成十個部分"></canvas>
+ <div class="txt pt"><h2>把它拆開看</h2><p class="p">十個部分，各做一件事。</p></div>
+ <ol class="plist"></ol>
+</section>
+
+<section class="ch" id="wash" aria-label="拆洗">
+ <canvas class="seq" role="img" aria-label="拔下導流罩，整個藥杯從金環口拔出"></canvas>
+ <div class="txt"><h2>洗的時候，<br>整組拔出來</h2><ol class="steps go" data-c="wash" data-t="1.2,2.8,4.3" style="margin-top:1.2em"><li><button>拔下導流罩</button></li><li><button>抓住藥瓶往上拔</button></li><li><button>杯身泡水，棉芯換新</button></li></ol></div>
+</section>
+
+<section class="ch" id="people" aria-label="孩子與大人">
+ <video class="fill" id="vb" src="v/boy.mp4" poster="img/boy.webp" muted playsinline loop preload="none" aria-label="孩子坐在桌前，湊近收合的岫本"></video>
+ <video class="fill" id="vw" src="v/woman.mp4" poster="img/woman.webp" muted playsinline loop preload="none" aria-label="大人坐在同一個位子，岫本拉高一段"></video>
+ <div class="pp dots" id="ppb"><button aria-pressed="true">孩子</button><button>大人</button></div><div class="txt r p1"><h2>孩子坐著，<br>收合剛好</h2><p class="p">不用墊高，也不用彎腰。</p></div>
+ <div class="txt r p2"><h2>換大人，<br>拉高一段</h2><p class="p">同一張桌子、同一個位子，罩口轉過來就好。</p></div>
+</section>
+
+<section class="ch" id="scene" aria-label="家裡的四個地方">
+ <div class="sc"><video class="fill" src="v/sc_bed.mp4" poster="img/sc_bed.webp" muted playsinline loop preload="none" aria-label="臥室床頭，檯燈和玩偶旁的岫本"></video></div>
+ <div class="sc"><video class="fill" src="v/sc_sofa.mp4" poster="img/sc_sofa.webp" muted playsinline loop preload="none" aria-label="客廳，長輩坐在沙發上，前方是岫本"></video></div>
+ <div class="sc"><video class="fill" src="v/sc_desk.mp4" poster="img/sc_desk.webp" muted playsinline loop preload="none" aria-label="夜晚書桌上的岫本"></video></div>
+ <div class="sc"><video class="fill" src="v/sc_win.mp4" poster="img/sc_win.webp" muted playsinline loop preload="none" aria-label="白天窗邊的岫本"></video></div>
+ <div class="grad"></div>
+ <div class="txt"><h2 id="sct">睡前，
+床頭的十分鐘</h2></div>
+ <div class="dots" data-go="scene"><button>臥室</button><button>客廳</button><button>書桌</button><button>窗邊</button></div>
+</section>
+
+<section class="ch" id="fin" aria-label="兩款顏色">
+ <img class="fill plate" src="img/plate.webp" alt="" loading="lazy">
+ <div class="unit g"><img src="img/green.webp" alt="綠色款"></div><div class="unit k"><img src="img/black.webp" alt="黑色款"></div>
+ <video class="mv g" src="v/mist.mp4" muted playsinline loop preload="none" aria-hidden="true"></video>
+ <video class="mv k" src="v/mist.mp4" muted playsinline loop preload="none" aria-hidden="true"></video>
+ <p class="col" id="colt">兩款，一樣的機構</p>
+ <div class="dots" id="colb"><button data-c="g">綠色款</button><button data-c="k">黑色款</button><button data-c="">一起看</button></div>
+</section>
+
+<div id="veil" aria-hidden="true"><div></div><img src="img/cloud.webp" alt=""><img src="img/cloud.webp" alt=""><img src="img/cloud.webp" alt=""></div>
+</div></div>
+
+<section class="sec" id="spec">
+ <h2>規格</h2>
+ <dl class="spec">
+  <div><dt>高度</dt><dd>250／300／350 mm，三段定位</dd></div>
+  <div><dt>底部寬</dt><dd>約 96 mm</dd></div>
+  <div><dt>重量</dt><dd>約 263 g（依體積估算）</dd></div>
+  <div><dt>藥瓶</dt><dd>6 mL，倒插旋入，四款</dd></div>
+  <div><dt>霧化片</dt><dd>Ø16 mm 網片</dd></div>
+  <div><dt>風扇</dt><dd>25 × 25 × 10 mm</dd></div>
+  <div><dt>主控</dt><dd>ESP32-S3</dd></div>
+  <div><dt>電池</dt><dd>800 mAh × 2，約 1.5 小時（估算）</dd></div>
+  <div><dt>充電</dt><dd>Type-C</dd></div>
+  <div><dt>燈</dt><dd>六顆指示燈，發光 LOGO</dd></div>
+  <div><dt>導流罩</dt><dd>霧面軟料，可拔下、可轉向</dd></div>
+  <div><dt>顏色</dt><dd>鼠尾草綠配香檳金；墨黑配緞面銀</dd></div>
+ </dl>
+ <p class="note" style="margin-top:36px">目前是設計階段。以上是圖面尺寸或估算值，還沒有實機量測。</p>
+</section>
+
+<section class="sec" id="film" style="padding-top:0">
+ <h2>完整影片</h2>
+ <video class="film" src="v/film.mp4" controls playsinline preload="none" poster="img/plate2.webp"></video>
+</section>
+
+<footer><svg viewBox="0 0 100 64" aria-hidden="true"><path d="M100.0 0.7L96.2 4.0L91.6 7.2L87.2 9.4L80.1 11.7L75.8 12.5L69.5 13.2L53.3 13.0L49.0 13.3L42.4 14.4L38.1 15.7L33.1 17.8L28.8 20.1L25.3 22.5L18.0 28.8L12.5 35.5L8.9 41.0L7.9 43.2L12.3 39.4L18.8 35.0L26.1 31.5L32.8 29.3L37.8 28.2L44.1 27.4L60.6 27.3L65.5 26.8L70.7 25.7L77.5 23.3L82.3 20.9L85.9 18.5L91.6 13.5L96.5 7.2ZM90.8 23.3L83.4 29.3L78.0 32.6L72.8 35.0L65.2 37.4L57.3 38.6L36.5 39.0L30.7 39.8L22.8 42.1L17.9 44.5L16.6 45.5L15.8 45.6L8.9 51.1L4.4 56.0L4.1 56.8L1.9 59.7L0.0 63.3L3.3 60.5L6.8 58.1L11.4 55.7L17.7 53.5L22.9 52.4L30.2 51.9L34.6 51.9L41.1 52.4L51.1 52.3L58.1 51.0L65.2 48.5L73.1 44.2L79.1 39.4L82.6 36.0L82.6 35.6L87.0 30.3L89.2 26.6Z"/></svg><div class="b">岫本</div><p>岫：山中出雲之處</p><p style="margin-top:22px">設計　林煜宸　|　指導　劉英傑 老師<br>長庚大學 工業設計學系 三年級</p><p class="note" style="margin-top:32px">概念設計示意，不代表實際功效。人物與部分場景為 AI 生成。</p></footer>
+
+<button id="snd" aria-pressed="false"><i aria-hidden="true"><b></b><b></b><b></b></i><span>開啟聲音</span></button>
+<nav id="nav" aria-label="段落"></nav><div id="bar" aria-hidden="true"></div>
+
+<script>
+(function(){
+const $=(s,r)=>(r||document).querySelector(s),$$=(s,r)=>[...(r||document).querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),seg=(t,a,b)=>cl((t-a)/(b-a)),ez=x=>x*x*(3-2*x),io=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,lp=(a,b,k)=>a+(b-a)*k;
+const win=(t,a,b,c,d)=>Math.min(seg(t,a,b),1-seg(t,c,d));
+const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+// 每段長度：滾輪幾格
+const PLAN=[['hero',7,'首頁'],['why',19,'為什麼'],['evo',9,'演變'],['form',8,'造型'],['height',9,'高度'],['app',7,'APP'],['dock',11,'一瓶一次'],['bottle',5,'四款藥瓶'],['flow',11,'氣流'],['parts',20,'拆解'],['wash',6,'拆洗'],['people',9,'孩子與大人'],['scene',9,'家裡'],['fin',6,'兩款']];
+let acc=0;const C={};PLAN.forEach(([id,n])=>{C[id]={id,a:acc,n,el:$('#'+id)};acc+=n});
+const TOT=acc,track=$('#track'),stage=$('#stage');let lw=-1,U=100,VW=0,VH=0,port=false;
+function size(){VW=stage.clientWidth;VH=stage.clientHeight;port=VW<=760||VW/VH<.8;if(VW!==lw){lw=VW;U=port?cl(VH*.15,100,140):100};track.style.height=(TOT*U+VH)+'px';Object.values(S).forEach(s=>s.size());const pw_=$('.pw');if(pw_){const ps=port?Math.min(VW*.6/300,VH*.68/620):Math.min(VH*.8/620,VW*.24/300);pw_.style.setProperty('--ps',ps)}}
+// ---- 影格
+const REG={};window.__fr=(d,o)=>REG[d]&&REG[d].recv(o);
+class Seq{constructor(id,n,o={}){this.cv=$('#'+id+' canvas');this.x=this.cv.getContext('2d');this.d=o.dir||id;this.n=n;this.b=[];this.im={};this.key='';this.zoom=o.zoom||(()=>0);this.fit=o.fit||(()=>1);this.vy=o.vy==null?.4:o.vy;this.fe=o.fe||.8;this.fs=o.fs||.2;this.cap=o.cap||.6;this.on=false;REG[this.d]=this}
+ load(){if(this.on)return;this.on=true;const add=k=>new Promise(r=>{const e=document.createElement('script');e.src='q/'+this.d+'_'+k+'.js';e.onload=e.onerror=r;document.head.append(e)});add('a').then(()=>add('b')).then(()=>port&&this.n>100?0:add('c'))}
+ recv(o){for(const k in o)this.b[+k]=o[k];this.key=''}
+ get(i){if(i<0||i>=this.n||!this.b[i])return null;let m=this.im[i];if(!m){m=this.im[i]=new Image();m.decoding='async';m.onload=()=>{m.ok=true;if(Math.abs(i-this.want)<9)this.key=''};m.src='data:image/webp;base64,'+this.b[i]}return m.ok?m:null}
+ size(){const d=Math.min(devicePixelRatio||1,2),w=this.cv.clientWidth||VW,h=this.cv.clientHeight||VH;this.cv.width=Math.round(w*d);this.cv.height=Math.round(h*d);this.key=''}
+ one(m,f,al){const c=this.cv,x=this.x,w=c.width,h=c.height,iw=m.naturalWidth,ih=m.naturalHeight,z=port?this.zoom(f):0,co=Math.max(w/iw,h/ih),ct=Math.min(w/iw,h/ih),s=z?Math.min(w*z/iw,h*this.cap/ih):ct+(co-ct)*this.fit(f);this.W=iw*s;this.H=ih*s;this.X=(w-this.W)/2;this.Y=(h-this.H)*(z?this.vy:.5);x.globalAlpha=al;x.drawImage(m,this.X,this.Y,this.W,this.H);x.globalAlpha=1}
+ draw(f){f=cl(f,0,this.n-1);const i=Math.floor(f),k=f-i;this.want=i;const key=i+':'+f.toFixed(2);if(key===this.key)return;
+  for(const q in this.im)if(Math.abs(q-i)>26)delete this.im[q];
+  let m=this.get(i),full=!!m;const nx=this.get(i+1);for(let q=1;q<12;q++){const a=this.get(i-q),b=this.get(i+1+q);if(!m)m=a||b}
+  if(!m)m=nx;if(!m)return;this.key=full&&(nx||i>=this.n-1)?key:'';const c=this.cv,x=this.x,w=c.width,h=c.height;x.imageSmoothingQuality='high';x.clearRect(0,0,w,h);this.one(m,f,1);
+  const fx=this.X>1,fy=this.Y>1||this.H<h-2,cut=(a,b,c2,d2,st)=>{const g=x.createLinearGradient(a,b,c2,d2);st.forEach(q=>g.addColorStop(q[0],q[1]));x.fillStyle=g;x.fillRect(this.X-2,this.Y-2,this.W+4,this.H+4)};
+  if(fx||fy){x.globalCompositeOperation='destination-out';if(fy)cut(0,this.Y,0,this.Y+this.H,[[0,'#000'],[this.fs,'#0000'],[this.fe,'#0000'],[1,'#000']]);if(fx)cut(this.X,0,this.X+this.W,0,[[0,'#000'],[.14,'#0000'],[.9,'#0000'],[1,'#000']]);x.globalCompositeOperation='source-over'}}}
+const ef=i=>{const f=249-i;return f>215?lp(1.2,2.2,seg(f,215,245)):f>150?lp(2,1.05,seg(f,150,172)):2};const S={height:new Seq('height',264,{dir:'rot',zoom:()=>3,vy:.5,fe:.9,fs:.04,cap:1}),dock:new Seq('dock',144,{zoom:()=>2.15,vy:.04,cap:.55}),flow:new Seq('flow',176,{zoom:i=>lp(1.9,2.8,seg(i,80,120))*.84,vy:.04,cap:.58}),parts:new Seq('parts',250,{dir:'exp',zoom:ef,vy:.35,fit:i=>{const f=249-i;return f>215?lp(-.14,.85,ez(seg(f,212,243))):f>150?1.14*(1-ez(seg(f,150,170)))-.14:1}}),wash:new Seq('wash',24,{zoom:()=>2.15,vy:.06,fs:.03,cap:.58})};
+// ---- 小工具
+const op=(e,o,x=0,y=0)=>{e.style.opacity=o;e.style.visibility=o>.004?'visible':'hidden';if(x!=null)e.style.translate=x+'px '+y+'px'};
+const vids=new Map();function play(v,on){if(vids.get(v)===on)return;vids.set(v,on);if(on&&!calm){const p=v.play();p&&p.catch(()=>{})}else v.pause()}
+const veil=$('#veil'),vi=$$('img',veil),vd=$('div',veil);
+function setVeil(v,t){veil.style.visibility=v>.004?'visible':'hidden';if(v<=.004)return;vi.forEach((m,k)=>{const q=cl(v*1.5-k*.16);m.style.opacity=q*.95;m.style.transform=`translate(${Math.sin(t*.35+k*2.1)*9+(k-1)*13}vmax,${(k-1)*9-((t*2.6)%40-20)*.35}vmax) scale(${lp(.75,1.5,v)+k*.24}) rotate(${(k-1)*14+t*1.2}deg)`});vd.style.opacity=ez(seg(v,.5,1))}
+let veilV=0;
+// ---- 造型：山稜 → 側線
+const HW=[89,92,95,99,102,102,103,103,104,106,107,109,112,114,117,120,124,127,131,136,140,145,150,155,161,166,173,179,185,192,199,206,214,222,230,238,246,255,265,266];
+const N=HW.length,jag=i=>Math.sin(i*1.7)*16+Math.sin(i*.6+1)*30+Math.sin(i*3.1)*7;
+function outline(k){const L=[],R=[];for(let i=0;i<N;i++){const yb=388+(i/(N-1))*984,u=i/(N-1),hm=20+u*260+Math.pow(u,1.9)*1250,ym=610+u*1000;
+ R.push([320+lp(hm+jag(i)*Math.min(1,u*4),HW[i],k),lp(ym+Math.sin(i*2.3)*8*(1-u),yb,k)]);L.push([320-lp(hm*1.12+jag(i+9)*Math.min(1,u*4),HW[i],k),lp(ym+Math.sin(i*1.9)*9*(1-u),yb,k)])}
+ return [R.slice().reverse(),L]}
+const pd=a=>a.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join('');
+// ---- 零件
+const PT=[['導流罩','霧面軟料，把霧帶到口鼻前，可以整個拔下。'],['藥瓶','倒插旋入，一瓶是一次的份量。'],['瓶座','接住倒過來的藥瓶。'],['霧化片','Ø16 mm 網片，把藥液震成霧。'],['集液杯','藥液先落在這裡，棉芯再吸上去。'],['伸縮管','三個定位點，拉到就卡住。'],['電池','兩顆 800 mAh，立在機身兩側。'],['主控板','ESP32-S3，管霧化、風扇和燈。'],['鼓風扇','25 mm 小風扇，把霧往上送。'],['腳環進氣','風從桌面邊緣的缺口進來。']];
+const pl=$('.plist');PT.forEach((p,i)=>{const li=document.createElement('li'),b=document.createElement('button');b.innerHTML='<span class="n"></span><b></b><em></em>';b.children[0].textContent=String(i+1).padStart(2,'0');b.children[1].textContent=p[0];b.children[2].textContent=p[1];b.onclick=()=>go('parts',PS+i*PG+.5);li.append(b);pl.append(li)});
+const PS=5.2,PG=1.36,KF=[[0,249],[.5,249],[3,204],[4.3,178]];for(let i=0;i<10;i++){const c=15*(9-i)+4,t=PS+i*PG;KF.push([t,c+3],[t+PG*.62,c-3])}
+function pf(t){for(let i=1;i<KF.length;i++)if(t<KF[i][0]){const[a,x]=KF[i-1],[b,y]=KF[i];return lp(x,y,ez(seg(t,a,b)))}return 1}
+// ---- 各段
+const he=C.hero.el,hg=$('.unit.g',he),hk=$('.unit.k',he),mg=$('.mv.g',he),mk=$('.mv.k',he);
+const wq=$$('#why .q'),wa=$$('#why .a'),say=$('.say'),pale=$('.pale');
+const rail=$('.rail'),lift=$('#lift'),mm=$('#mm'),stopB=$$('.stops button');let manual=null;
+const bts=[],btb=[],scs=$$('.sc'),scb=$$('#scene .dots button'),SCT=['睡前，\n床頭的十分鐘','客廳裡，\n爸媽也能一起用','夜深了，\n書桌旁','白天，\n窗邊的一小段空檔'];
+const stp=(sel,k)=>$$(sel+' .steps li').forEach((l,i)=>l.classList.toggle('on',i===k));
+let HA=0;function setLift(e,a){if(a==null)a=HA;HA=a;const hi=Math.round(e/10),ai=((Math.round(a/15)%24)+24)%24;S.height.draw(hi*24+ai);$('#dgo').textContent=DG(ai*15);rot.value=ai*15;rot.style.setProperty('--v',ai*15/3.45+'%');mm.textContent=Math.round(250+e);lift.value=e;lift.style.setProperty('--v',e+'%');stopB.forEach(b=>b.setAttribute('aria-pressed',Math.abs(+b.dataset.v-e)<2))}
+const UP={
+hero(t){const a=1-ez(seg(t,.5,2));op($('.ttl',he),a,null);$('.cue',he).style.opacity=1-seg(t,0,.7);
+ const z=1+.1*ez(seg(t,.4,3)),o=io(seg(t,2.6,6)),d=VW*.62;hg.style.transform=`translateX(${-d*o}px) scale(${z})`;hk.style.transform=`translateX(${d*o}px) scale(${z})`;
+ const mx=1+.1*ez(seg(t,.4,3)),my=-(z-1)*hg.offsetWidth;[mg,mk].forEach((m,i)=>{m.style.transform=`translate(${(i?1:-1)*d*o}px,${my*(i?2.723:2.273)}px) scale(${mx})`;m.style.opacity=1-seg(t,3.2,5)});
+ $('.plate',he).style.opacity=.9-.7*seg(t,3,6);veilV=Math.max(veilV,ez(seg(t,2.4,6.2)))},
+why(t){const b=1-seg(t,4,5);pale.style.opacity=b;op(say,win(t,.5,1.6,3.7,4.5),0,lp(26,0,ez(seg(t,.5,1.8))));veilV=Math.max(veilV,1-ez(seg(t,0,1.7)));
+ for(let i=0;i<4;i++){const s=4.9+i*3.4;op(wq[i],win(t,s,s+.45,s+1.15,s+1.6),0,lp(18,0,ez(seg(t,s,s+.5))));const last=i===3;op(wa[i],Math.min(seg(t,s+1.35,s+1.75),1-seg(t,s+3.1,s+3.5)),null);$('.txt,.cap',wa[i]).style.translate='0 '+lp(22,0,ez(seg(t,s+1.6,s+2.2)))+'px';veilV=Math.max(veilV,.78*Math.max(0,1-Math.abs(t-(s+1.5))/.75))}},
+evo(t){const w=rail.scrollWidth+VW*.08-VW;rail.style.transform=`translateX(${-w*ez(seg(t,.7,8))*1}px)`;},
+form(t){const k=io(seg(t,2,4.4)),[R,L]=outline(k);const all=R.concat(L);$('#rf').setAttribute('d',pd(all)+'Z');$('#rl').setAttribute('d',pd(all));$('#rf').style.opacity=1-seg(t,4.4,5.4);
+ const r=$('#rl'),n=r.getTotalLength();r.style.strokeDasharray=n;r.style.strokeDashoffset=n*(1-ez(seg(t,.3,2)));r.style.opacity=1-seg(t,5.2,6);
+ $('#form .wr img').style.opacity=ez(seg(t,4.2,5.4));if(C.form.el.classList.contains('cmp')){const[R2,L2]=outline(1);const a2=R2.concat(L2);$('#rl').setAttribute('d',pd(a2));$('#rl').style.opacity=1;$('#rl').style.strokeDashoffset=0;const[R3,L3]=outline(0);$('#rf').setAttribute('d',pd(R3.concat(L3))+'Z');$('#rf').style.opacity=.42;$('#form .far').style.opacity=.5;$('#form .far').style.transform='none'}$('#form .far').style.opacity=1-k;$('#form .far').style.transform=`translateY(${k*120}px)`;$('#form .sky').style.opacity=1-ez(seg(t,2.4,4.8));
+ op($('#form .t1'),win(t,.1,.8,2.2,3),0,0);op($('#form .t2'),seg(t,4,4.9),0,lp(20,0,ez(seg(t,4,5))))},
+height(t){const e=50*io(seg(t,1.2,2.8))+50*io(seg(t,4,5.8)),a=345*ez(seg(t,6.1,8.1));if(manual!=null&&Math.abs(scrollY-manual.y)>60)manual=null;setLift(manual&&manual.e!=null?manual.e:e,manual&&manual.a!=null?manual.a:a)},
+dock(t){const f=lp(0,143,seg(t,.4,10));S.dock.draw(f);stp('#dock',f<18?0:f<42?1:f<92?2:f<118?3:4)},
+bottle(t){$$('.bb').forEach((b,i)=>{const k=ez(seg(t,.2+i*.25,1.1+i*.25));b.style.opacity=$('.brow').classList.contains('sel')?'':k;b.style.translate='0 '+lp(40,0,k)+'px'});op($('.bhd'),ez(seg(t,0,.9)),0,0)},
+flow(t){const f=lp(0,175,seg(t,.2,6.6));S.flow.draw(f);stp('#flow',f<40?0:f<60?1:f<80?2:3);op($('.f1'),1-seg(t,3.9,4.5),0,0);op($('.f2'),win(t,4.6,5.3,6.9,7.4),0,0);
+ const g=seg(t,7.3,8);op($('#fogv'),g,null);$('#fogv .txt').style.translate='0 '+lp(24,0,ez(seg(t,7.6,8.6)))+'px';play($('#fogv video'),g>.02)},
+parts(t){S.parts.draw(249-pf(t));op($('.pt'),1-seg(t,4.2,5),0,0);op(pl,seg(t,4.2,5),null);const k=cl(Math.floor((t-PS+.35)/PG),0,9);$$('li',pl).forEach((l,i)=>{l.classList.toggle('cur',i===k);l.firstChild.classList.toggle('on',i===k)})},
+wash(t){const f=lp(0,23,seg(t,.5,4.2));S.wash.draw(f);stp('#wash',f<9?0:f<21?1:2);veilV=Math.max(veilV,ez(seg(t,4.6,5.9)))},
+people(t){$$('#ppb button').forEach((b,i)=>b.setAttribute('aria-pressed',(t>4.5)===(i===1)));veilV=Math.max(veilV,1-ez(seg(t,0,1.1)),.55*Math.max(0,1-Math.abs(t-4.5)/.9));const a=$('#vb'),b=$('#vw'),k=ez(seg(t,4.1,5));b.style.opacity=k;play(a,k<.99);play(b,k>.01);a.style.transform=`scale(${lp(1,1.05,seg(t,0,5))})`;b.style.transform=`scale(${lp(1,1.05,seg(t,4,9))})`;op($('.p1'),win(t,.9,1.6,3.6,4.2),0,0);op($('.p2'),seg(t,5,5.8),0,0)},
+scene(t){const k=cl(t/2.1,0,3.999);scs.forEach((s,i)=>{const d=k-i;s.style.opacity=i===0?1:ez(seg(d,-.22,.08));const vis=d>-.25&&d<1.1;s.style.visibility=d>-.25?'visible':'hidden';play($('video',s),vis)});const j=Math.floor(k+.1);if($('#sct').textContent!==SCT[j])$('#sct').textContent=SCT[j];scb.forEach((b,i)=>b.setAttribute('aria-pressed',i===j))},
+app(t){},fin(t){const o=1-io(seg(t,.2,2.6)),d=VW*.5;$('.unit.g',C.fin.el).style.transform=`translateX(${-d*o}px)`;$('.unit.k',C.fin.el).style.transform=`translateX(${d*o}px)`;$$('.mv',C.fin.el).forEach((m,i)=>{m.style.transform=`translateX(${(i?1:-1)*d*o}px)`;});}
+};
+let sy=0,goal=0,setY=0,drive=false,lastW=0,settled=true,tw=null,pt=0;
+const REST=[];const rest=(id,...a)=>a.forEach(t=>REST.push(C[id].a+t));
+rest('hero',0);rest('why',2.7);for(let i=0;i<4;i++)rest('why',4.9+i*3.4+.8,4.9+i*3.4+2.5);rest('evo',.4);rest('form',1.4,6.2);rest('height',.6,3.4,6.6,8.4);rest('app',3);rest('bottle',2.6);rest('flow',5.9,9.6);rest('parts',3.6);for(let i=0;i<10;i++)rest('parts',PS+i*PG+.45);rest('wash',4.3);rest('people',2.4,7);rest('scene',.9,3,5.1,7.2);rest('fin',4.5);
+const endY=()=>track.offsetTop+TOT*U;
+function go(id,t,smooth=true){const y=track.offsetTop+(C[id].a+t)*U;if(!smooth||calm){drive=false;sy=goal=y;setY=y;scrollTo(0,y);return}tw={a:sy,b:y,t:performance.now(),d:cl(Math.abs(y-sy)/U*260,500,1600)};drive=true;goal=y;settled=true}
+addEventListener('wheel',e=>{if(e.ctrlKey||calm||e.target.closest&&e.target.closest('#sheet'))return;let d=e.deltaY;if(Math.abs(e.deltaX)>Math.abs(d))return;if(e.deltaMode===1)d*=33;else if(e.deltaMode===2)d*=VH;const E=endY();
+ if(scrollY>E+2||(scrollY>=E-2&&d>0))return;e.preventDefault();tw=null;if(!drive){goal=sy}drive=true;lastW=performance.now();settled=false;
+ goal=cl(goal+cl(d,-100,100)*.72,sy-U*1.05,sy+U*1.05);goal=cl(goal,0,E)},{passive:false});
+addEventListener('keydown',e=>{if(/INPUT|BUTTON|VIDEO/.test(e.target.tagName)||e.metaKey||e.ctrlKey||sheet.classList.contains('on'))return;const k=e.key,dn=k==='ArrowDown'||k==='PageDown'||(k===' '&&!e.shiftKey),up=k==='ArrowUp'||k==='PageUp'||(k===' '&&e.shiftKey);if(!dn&&!up||calm)return;const E=endY();if(scrollY>E+2||(scrollY>=E-2&&dn))return;e.preventDefault();
+ const g=(sy-track.offsetTop)/U,L=REST.slice().sort((a,b)=>a-b),n=dn?L.find(x=>x>g+.15):L.reverse().find(x=>x<g-.15);const y=n==null?(dn?E:0):track.offsetTop+n*U;tw={a:sy,b:y,t:performance.now(),d:cl(Math.abs(y-sy)/U*300,500,1500)};drive=true;goal=y;settled=true});
+function frame(now){
+ const dt=Math.min(.05,(now-pt)/1000||.016);pt=now;
+ if(sheetY!=null&&Math.abs(scrollY-sheetY)>U*1.4)closeS();
+ if(drive&&Math.abs(scrollY-setY)>3){drive=false;tw=null;goal=scrollY}
+ if(drive){if(tw){const k=cl((now-tw.t)/tw.d);sy=lp(tw.a,tw.b,k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2);if(k>=1)tw=null}
+  else{if(!settled&&now-lastW>300){settled=true;const g=goal/U,q=REST.reduce((a,b)=>Math.abs(b-g)<Math.abs(a-g)?b:a);const dq=Math.abs(q-g);if(dq<.62)goal=track.offsetTop+q*U}
+   sy+=(goal-sy)*(1-Math.exp(-dt*4.2));if(Math.abs(goal-sy)<.15)sy=goal}
+  setY=Math.round(sy);if(Math.abs(scrollY-setY)>=1){scrollTo(0,setY);setY=scrollY}}
+ else{const target=scrollY;sy=calm?target:sy+(target-sy)*(1-Math.exp(-dt*8));if(Math.abs(target-sy)<.3||Math.abs(target-sy)>VH*9)sy=target;goal=sy}
+ const g=(sy-track.offsetTop)/U;veilV=0;
+ for(const id in C){const c=C[id],t=g-c.a,X=.55;let o=0;
+  if(t>-X&&t<c.n+X){o=c.a===0?1:seg(t,-X,0);}
+  if(id==='fin'&&t>=c.n)o=1;
+  c.el.style.visibility=o>.003?'visible':'hidden';c.el.style.opacity=o;
+  if(S[id]&&t>-14&&t<c.n+8)S[id].load();
+  if(o>.003)try{UP[id](cl(t,0,c.n))}catch(e){console.error(id,e)}}
+ $$('#hero .mv').forEach(v=>play(v,g<7.4));$$('#fin .mv').forEach(v=>play(v,g>C.fin.a-1&&g<TOT+8));if(g<C.flow.a||g>C.parts.a)play($('#fogv video'),false);if(g<C.people.a-1||g>C.scene.a+.6){play($('#vb'),false);play($('#vw'),false)}if(g<C.scene.a-1||g>C.fin.a+.6)scs.forEach(q=>play($('video',q),false));sound(g);if(apT&&(g<C.app.a-1.5||g>C.app.a+C.app.n+1.5))apStop();
+ setVeil(veilV,now/1000);
+ navs.forEach((n,i)=>n.classList.toggle('on',g>=PLAN0[i]&&(i===PLAN.length-1||g<PLAN0[i+1])));bar.style.transform=`scaleY(${cl(g/TOT)})`;
+ requestAnimationFrame(frame)}
+// ---- 聲音
+let AC=null,BUF={},G={},on=false,pg=null;const snd=$('#snd');
+const b64=x=>{const a=atob(x),u=new Uint8Array(a.length);for(let i=0;i<a.length;i++)u[i]=a.charCodeAt(i);return u.buffer};
+window.__snd=async o=>{await Promise.all(Object.keys(o).map(async k=>{try{BUF[k]=await AC.decodeAudioData(b64(o[k]))}catch(e){}}));for(const k of['bed','beat','wind']){if(!BUF[k])continue;const n=AC.createBufferSource(),q=AC.createGain();n.buffer=BUF[k];n.loop=true;n.loopStart=.2;n.loopEnd=BUF[k].duration-.35;q.gain.value=0;n.connect(q).connect(G.m);n.start();G[k]=q}};
+function hitS(n,v=.5){if(!on||!BUF[n])return;const a=AC.createBufferSource(),q=AC.createGain();a.buffer=BUF[n];q.gain.value=v;a.connect(q).connect(G.m);a.start()}
+snd.onclick=()=>{on=!on;if(!AC){AC=new(window.AudioContext||window.webkitAudioContext)();G.m=AC.createGain();G.m.gain.value=0;const c=AC.createDynamicsCompressor();G.m.connect(c).connect(AC.destination);const e=document.createElement('script');e.src='q/audio.js';document.head.append(e)}AC.resume();G.m.gain.setTargetAtTime(on?.9:0,AC.currentTime,.25);snd.setAttribute('aria-pressed',on);snd.lastElementChild.textContent=on?'關閉聲音':'開啟聲音'};
+document.addEventListener('visibilitychange',()=>{if(AC)document.hidden?AC.suspend():on&&AC.resume()});
+const CUE=[];const cue=(id,t,n,v)=>CUE.push([C[id].a+t,n,v]);
+cue('hero',.9,'air',.35);cue('hero',3,'air',.6);cue('why',.6,'n0',.28);for(let i=0;i<4;i++){const q=4.9+i*3.4;cue('why',q+.2,'hit',.3);cue('why',q+1.3,'air',.45);cue('why',q+1.7,'n'+i,.26)}
+for(let i=0;i<5;i++)cue('evo',1.5+i*1.25,'cut',.16);cue('form',.4,'air',.3);cue('form',2.1,'swish',.5);cue('form',4.4,'n2',.35);cue('height',1.25,'swish',.5);cue('height',2.75,'thud',.6);cue('height',4.05,'swish',.5);cue('height',5.75,'thud',.6);
+cue('dock',1.05,'jar',.45);cue('dock',2.8,'air',.35);cue('dock',5.1,'screw',.5);cue('dock',6.5,'mag',.35);cue('dock',8.1,'rub',.7);[8.6,8.9,9.2,9.5].forEach((t,i)=>cue('dock',t,'n'+i,.32));cue('flow',.2,'air',.3);cue('flow',7.4,'air',.5);
+cue('parts',.6,'cut',.35);cue('parts',1.4,'mag',.25);cue('parts',2.2,'mag',.25);for(let i=0;i<10;i++)cue('parts',PS+i*PG-.1,i===7?'chip':'tick',i===7?.45:.3);cue('wash',.8,'rub',.6);cue('wash',2,'air',.3);cue('wash',3.8,'mag',.3);cue('people',.5,'n1',.28);cue('people',4.2,'air',.4);for(let i=1;i<4;i++)cue('scene',i*2.1-.2,'n'+i,.26);cue('fin',.4,'air',.4);cue('fin',2.5,'hit',.35);cue('fin',2.6,'n3',.3);
+function sound(g){if(pg!=null&&on&&Math.abs(g-pg)<1.2&&g!==pg)for(const[c,n,v]of CUE)if((pg<c&&g>=c)||(pg>c&&g<=c))hitS(n,g>pg?v:v*.6);pg=g;
+ if(!AC||!G.bed)return;const t=AC.currentTime,h=C.height.a,e=C.people.a,f=C.flow;G.bed.gain.setTargetAtTime(.62,t,.8);G.beat&&G.beat.gain.setTargetAtTime(g>h-.5&&g<e?(g>C.bottle.a&&g<C.flow.a?.22:.42):g>C.fin.a-.5&&g<TOT+3?.3:0,t,1.1);G.wind&&G.wind.gain.setTargetAtTime(g>f.a&&g<f.a+f.n?.34:g<6?.07:g>C.people.a&&g<C.fin.a?.06:0,t,.7)}
+// ---- 點開
+const BT=[['宣竅清息','一呼一吸，如入山林','#3f5a2c'],['養榮潤色','由內而外，氣色自來','#5a2f2a'],['潤肺生津','金水相生，喉間回甘','#6a3d18'],['寧心安神','一枕月色，緩緩入眠','#6b5530']];
+$$('.bb').forEach((b,i)=>b.onclick=()=>{const on=!b.classList.contains('on');$$('.bb').forEach(q=>{q.classList.toggle('on',q===b&&on);q.setAttribute('aria-pressed',q===b&&on)});$('.brow').classList.toggle('sel',on);const d=$('.bdet');d.classList.toggle('on',on);if(on){$('h3',d).textContent=BT[i][0];$('.l1',d).textContent=BT[i][1];$('.l2',d).textContent='No.0'+(i+1)+'　'+$('b',b).textContent+'　・　6 mL，一瓶一次';C.bottle.el.style.setProperty('--bc',BT[i][2]);hitS('g'+i,.5)}else C.bottle.el.style.removeProperty('--bc')});
+const EV=['最早的直筒機身，藥水從側面倒進去，再由機器裡的幫浦送到頂部霧化。','霧化片移到頂部，導流罩改成半透明霧面，可以朝一側彎。','做了六款導流罩白模實際比較：彎曲只改變方向，換罩最多只讓出口高度差約 10 公分。所以改成由機身伸縮來調高度，導流罩只管方向。','三個造型方向：出岫、沙漏、莖。同時把倒藥改成小藥瓶，倒過來旋進機身。','選定「出岫」。先定一條連續的輪廓，再依分模線切成底座、香檳金收腰和導流罩，做綠色與黑色兩款。','收合縮到 250 mm，三段高度 0／50／100 mm。頭部改成藥瓶、滴流塞、集液杯、棉芯和霧化片，藥杯可以整組拔出來洗。'];
+const INFO={ux:['介面怎麼想的','<ol><li><b>一頁只做一件事。</b>首頁選人、選瓶；下一頁確認；再下一頁只顯示時間。家長常常一手抱孩子，按鈕都做大、放在拇指碰得到的下半部。</li><li><b>先確認三件事再開始。</b>機器不會偵測藥瓶有沒有裝、高度對不對、罩口有沒有對準，所以把這三件事變成開始前的檢查，三件都勾了才能按開始。</li><li><b>記住每個人的高度。</b>孩子收合、大人拉高 50，選了人就直接提醒他該拉到哪一段。</li><li><b>進行中只留需要的。</b>剩餘時間、本草故事、背景音樂、暫停和結束，其他都收起來。</li><li><b>用完提醒怎麼收。</b>結束畫面直接列出拔罩、洗杯、換棉芯三步，並記一筆紀錄。</li></ol><p class="note">畫面裡的連線狀態、電量、家人和紀錄都是示意。</p>'],
+c1:['中藥配方','<p>四款藥瓶，每瓶 6 mL，就是一次的份量。轉開瓶蓋、倒過來旋入機身，不用把藥倒進機器。</p><p class="note">配方為概念示意，非療效宣稱。</p>',['看四款藥瓶','bottle',2.6]],
+c2:['微米霧化','<p>Ø16 mm 的網片把藥液震成細霧。底部小風扇從腳環進風，穿過伸縮管，把霧從罩口送出來。</p><p>電腦氣流模擬中，5 µm 與 10 µm 的霧滴都有 99.7% 從罩口送出。</p><p class="note">模擬為簡化的對稱剖面，還沒有實測。</p>',['看氣流','flow',5.9]],
+c3:['音樂・本草故事・APP','<p>用手機按開始、停止。十分鐘的使用時間裡，搭配音樂和這味草本的故事。</p>'],
+q1:['怎麼共用一台','<p>收合 250 mm；拉高 50 mm 是 300 mm；拉高 100 mm 是 350 mm。</p><p>伸縮管底部有一顆彈簧定位珠，拉到定位會卡住。導流罩是軟的，可以彎、可以轉，對準口鼻。</p>',['自己拉拉看','height',3.4]],
+q2:['藥液怎麼進到機器','<ol><li>藥液出廠就封在藥瓶裡（6 mL）。</li><li>轉開瓶蓋，倒過來旋進瓶座。</li><li>藥液經滴流塞，慢慢流到集液杯。</li><li>棉芯把藥液吸到霧化片，變成霧。</li></ol>',['看旋入過程','dock',5.2]],
+q3:['拆洗步驟','<ol><li>拔下導流罩（套在金環上，一拔就下來）。</li><li>抓住藥瓶往上拔，整個藥杯從金環口出來。</li><li>在水槽轉下藥瓶，霧化頭從杯身拔出，棉芯往下抽掉。</li><li>杯身泡水刷洗，霧化頭用水沖。</li><li>換新棉芯，照相反順序裝回，最後一段會「喀」一聲到位。</li></ol><p class="note">杯身裡沒有電子零件，可以整個泡水。</p>',['看拆洗動畫','wash',3]],
+q4:['不用面罩','<p>人坐著，臉靠近導流罩，罩口和臉留大約 5 公分，輕輕吸就好。不用戴、也不用貼著臉。</p>',['看孩子與大人','people',2.4]],
+h1:['怎麼卡住的','<p>伸縮管底部，從管子內側鎖了一顆塑膠珠彈簧柱塞（M4×6）。拉到收合、拉高 50、拉高 100 mm 這三個位置時，珠子會彈出來卡住；再稍微用力就能拉到下一段。</p><p class="note">卡住的手感要等實際列印後再調。</p>'],
+f1:['氣流模擬數據','<table><tr><th></th><th>5 µm</th><th>10 µm</th></tr><tr><td>從罩口送出</td><td>99.7%</td><td>99.7%</td></tr><tr><td>沾在零件上</td><td>0%</td><td>0.04%</td></tr><tr><td>120 秒後還在罩裡</td><td>0.3%</td><td>0.2%</td></tr><tr><td>送出時間（中位數）</td><td>2.2 秒</td><td>2.0 秒</td></tr></table><p style="margin-top:14px">管內風量約 4 L/min。最窄的出霧開口 208 mm²，藥瓶旁的開口比它大 1.6 倍，藥瓶沒有擋住霧。</p><p class="note">自己寫的軸對稱氣流與霧滴追蹤，每種霧滴各 10000 顆。沒算進去的：棉芯和杯底的殘留藥液、紊流擴散、實際風扇風量，都要實測。</p>']};
+const sheet=document.createElement('aside');sheet.id='sheet';sheet.setAttribute('role','dialog');sheet.setAttribute('aria-label','詳細資料');sheet.innerHTML='<button class="x" aria-label="關閉">×</button><div class="sc2"></div>';document.body.append(sheet);let sheetY=null,lastBtn=null;
+function openS(k,from){let t,h,g;if(k[0]==='e'){const i=+k.slice(1)-1,c=$$('.card')[i];t=$('.d b',c).textContent;h='<p class="note" style="margin-top:0">'+$('.d span',c).textContent+'</p><img src="'+$('img',c).getAttribute('src')+'" alt=""><p style="margin-top:14px">'+EV[i]+'</p>'}else{[t,h,g]=INFO[k]}
+ const b=$('.sc2',sheet);b.innerHTML='<h3></h3>'+h;$('h3',b).textContent=t;if(g){const x=document.createElement('button');x.className='more go2';x.textContent=g[0];x.onclick=()=>{closeS();go(g[1],g[2])};b.append(x)}
+ sheet.classList.add('on');sheetY=scrollY;lastBtn=from;hitS('tick',.3);setTimeout(()=>$('.x',sheet).focus({preventScroll:true}),60)}
+function closeS(){if(!sheet.classList.contains('on'))return;sheet.classList.remove('on');sheetY=null;lastBtn&&lastBtn.focus({preventScroll:true})}
+$('.x',sheet).onclick=closeS;addEventListener('keydown',e=>{if(e.key==='Escape')closeS()});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(b&&!sheet.contains(b)){openS(b.dataset.k,b);return}if(sheet.classList.contains('on')&&!sheet.contains(e.target))closeS()});
+$$('.card').forEach(c=>c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openS(c.dataset.k,c)}}));
+$$('.steps.go').forEach(o=>{const T=o.dataset.t.split(',').map(Number);$$('button',o).forEach((b,i)=>b.onclick=()=>go(o.dataset.c,T[i]))});
+$$('#ppb button').forEach((b,i)=>b.onclick=()=>go('people',i?7:2.4));
+const cmp=$('#cmp');cmp.onclick=()=>{const on=cmp.getAttribute('aria-pressed')!=='true';cmp.setAttribute('aria-pressed',on);cmp.textContent=on?'收起山稜線':'疊上山稜線';C.form.el.classList.toggle('cmp',on)};
+// ---- APP
+const AP=C.app.el,apon=$('.ap-u .on',AP),amv=$('.amv',AP),PH=$('.scr',AP);let apT=null,apLeft=600,apI=0,apW=0,apAn=null,apPz=false,apS=0;
+const WHO=[['孩子','收合 250 mm'],['大人','拉高 50 mm']],fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+function apLight(on){cancelAnimationFrame(apAn);const t0=performance.now(),from=parseFloat(apon.style.getPropertyValue('--m'))||0,to=on?110:0;apon.style.opacity=1;(function f(n){const k=cl((n-t0)/(on?1500:700));apon.style.setProperty('--m',lp(from,to,k)+'%');if(k<1)apAn=requestAnimationFrame(f);else if(!on)apon.style.opacity=0})(t0)}
+function view(v){const cur=$('.vw.on',PH);if(cur&&cur.dataset.v===v)return;const ord=['home','prep','run','done','log'];$$('.vw',PH).forEach(x=>{x.classList.toggle('on',x.dataset.v===v);x.classList.toggle('lft',ord.indexOf(x.dataset.v)<ord.indexOf(v))});$$('.tab button',PH).forEach(b=>b.setAttribute('aria-pressed',b.dataset.to===(v==='log'?'log':'home')));$('.tab',PH).style.display=v==='home'||v==='log'?'':'none';hitS('tick',.22)}
+function tick(){if(apPz)return;apLeft--;$('.tm',PH).textContent=fmt(Math.max(apLeft,0));$('.pg',PH).style.strokeDashoffset=339.3*(1-apLeft/600);if(apLeft<=0)apDone()}
+function apStart(){apLeft=600;apPz=false;AP.classList.add('run');AP.classList.remove('pz');$('.tm',PH).textContent='10:00';$('.rs',PH).textContent='出霧中';$('#appz').textContent='暫停';$('.pg',PH).style.strokeDashoffset=0;$('#rnm').textContent=$$('.bb')[apI].querySelector('b').textContent+'・'+WHO[apW][0];$('#rst').textContent=$$('.bb')[apI].querySelector('b').textContent+'・'+BT[apI][1];
+ apLight(true);[0,1,2,3].forEach(i=>setTimeout(()=>hitS('n'+i,.3),180*i));setTimeout(()=>{hitS('air',.4);play(amv,true)},900);clearInterval(apT);apT=setInterval(tick,1000)}
+function apOff(){clearInterval(apT);apT=null;AP.classList.remove('run','pz');apLight(false);setTimeout(()=>{if(!apT)play(amv,false)},1600)}
+function apDone(){const used=600-Math.max(apLeft,0);apOff();$('#dsm').textContent=$$('.bb')[apI].querySelector('b').textContent+'・'+WHO[apW][0]+'・'+(used>=590?'10 分鐘':Math.max(1,Math.round(used/60))+' 分鐘');view('done');hitS('n3',.3);
+ const lg=$('.lg',PH),em=$('.em',lg);em&&em.remove();const li=document.createElement('li'),d=new Date(),a=document.createElement('span'),b=document.createElement('span');a.textContent=$('#dsm').textContent;b.textContent='今天 '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');a.style.color='#24221E';li.append(a,b);lg.prepend(li)}
+$$('[data-to]',PH).forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.to;if(v==='run'){apStart();view('run')}else view(v)}));
+$$('.who button',PH).forEach((b,i)=>b.onclick=()=>{apW=i;$$('.who button',PH).forEach(q=>q.setAttribute('aria-pressed',q===b));$('#ck2').textContent=WHO[i][0]+'：'+WHO[i][1];hitS('tick',.25)});
+$$('.pk button',PH).forEach((b,i)=>b.onclick=()=>{apI=i;$$('.pk button',PH).forEach(q=>q.setAttribute('aria-pressed',q===b));$('#ck1').textContent='No.0'+(i+1)+' '+$('b',b).textContent;hitS('g'+i,.4)});
+$$('.chk button',PH).forEach(b=>b.onclick=()=>{b.classList.toggle('y');hitS('tick',.25);$('#apgo').disabled=$$('.chk .y',PH).length<3;if(!$('#apgo').disabled)$('#apgo').textContent='三件都好了，開始'});
+$('[data-to=prep]',PH).addEventListener('click',()=>{$$('.chk button',PH).forEach(b=>b.classList.remove('y'));$('#apgo').disabled=true});
+$('#appz').onclick=()=>{apPz=!apPz;AP.classList.toggle('pz',apPz);$('#appz').textContent=apPz?'繼續':'暫停';$('.rs',PH).textContent=apPz?'已暫停':'出霧中';hitS('tick',.3)};
+$('#apend').onclick=apDone;$('#apff').onclick=()=>{apLeft=3;tick()};
+$('.pl',PH).onclick=()=>{const on=!$('.pl',PH).classList.contains('on');$('.pl',PH).classList.toggle('on',on);$('.story',PH).classList.toggle('on',on);$('.pl',PH).setAttribute('aria-label',on?'暫停本草故事':'播放本草故事')};
+function apStop(){AP.classList.remove('live');if(apT){apOff();view('home')}}
+$('.appgo',AP).onclick=()=>AP.classList.add('live');
+addEventListener('message',e=>{const d=e.data;if(!d||!d.xiuben)return;
+ if(d.xiuben==='wheel'){dispatchEvent(new WheelEvent('wheel',{deltaY:d.deltaY,deltaX:d.deltaX,deltaMode:d.deltaMode}));return}
+ if(d.xiuben==='page'){const on=/^(Session|Breathe)/.test(d.page);
+  if(on&&!AP.classList.contains('run')){AP.classList.add('run');AP.classList.remove('pz');apLight(true);[0,1,2,3].forEach(i=>setTimeout(()=>hitS('n'+i,.3),180*i));setTimeout(()=>{hitS('air',.4);play(amv,true)},900);apT='app'}
+  else if(!on&&AP.classList.contains('run'))apOff()}});
+
+// ---- 操作
+const nav=$('#nav'),bar=$('#bar'),PLAN0=PLAN.map(p=>C[p[0]].a);
+const navs=PLAN.map(([id,n,nm])=>{const a=document.createElement('a');a.href='#'+id;const s=document.createElement('span');s.textContent=nm;a.append(s);a.setAttribute('aria-label',nm);a.onclick=e=>{e.preventDefault();go(id,id==='hero'?0:id==='why'?2.7:.6,false)};nav.append(a);return a});
+const rot=$('#rot'),DG=d=>d===0?'朝前':d===180?'朝後':(d<180?'往右 ':'往左 ')+(d<180?d:360-d)+'°';lift.oninput=()=>{manual={...(manual||{a:HA}),e:+lift.value,y:scrollY}};rot.oninput=()=>{manual={...(manual||{e:+lift.value}),a:+rot.value,y:scrollY}};
+{const cv=$('#height canvas');let px=null,a0=0;cv.style.touchAction='pan-y';cv.style.cursor='grab';cv.addEventListener('pointerdown',e=>{px=e.clientX;a0=HA;cv.setPointerCapture(e.pointerId)});cv.addEventListener('pointermove',e=>{if(px==null)return;const a=((a0+(e.clientX-px)*.9)%360+360)%360;manual={...(manual||{e:+lift.value}),a,y:scrollY}});const up=()=>{px=null};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up)}
+stopB.forEach(b=>b.onclick=()=>{const from=+lift.value,to=+b.dataset.v,t0=performance.now();(function st(n){const k=calm?1:cl((n-t0)/600);manual={...(manual||{a:HA}),e:Math.round(lp(from,to,io(k))/10)*10,y:scrollY};if(k<1)requestAnimationFrame(st)})(t0)});
+scb.forEach((b,i)=>b.onclick=()=>go('scene',i*2.1+.8));
+function swipe(el,fn){let x=0,y=0;el.addEventListener('touchstart',e=>{x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});el.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-x,dy=e.changedTouches[0].clientY-y;if(Math.abs(dx)>46&&Math.abs(dx)>Math.abs(dy)*1.6)fn(dx<0?1:-1)},{passive:true})}
+const cur=a=>Math.max(0,a.findIndex(b=>b.getAttribute('aria-pressed')==='true'));
+swipe(C.scene.el,d=>go('scene',cl(cur(scb)+d,0,3)*2.1+.8));
+const CT={g:'霧面鼠尾草綠，配香檳金',k:'霧面墨黑，配緞面銀','':'兩款，一樣的機構'};
+$$('#colb button').forEach(b=>b.onclick=()=>{const c=b.dataset.c;$$('#colb button').forEach(q=>q.setAttribute('aria-pressed',q===b));$('#colt').textContent=CT[c];['g','k'].forEach(q=>$$('#fin .'+q).forEach(e=>{const off=c&&c!==q;e.style.opacity=off?(e.tagName==='VIDEO'?0:.16):1;e.style.filter=off?'blur(3px)':''}))});
+$('#colb button[data-c=""]').setAttribute('aria-pressed','true');
+$('#hero .mv.k').addEventListener('loadedmetadata',e=>{e.target.currentTime=1});
+size();addEventListener('resize',size);sy=goal=setY=scrollY;requestAnimationFrame(frame);
+window.__go=(id,t)=>go(id,t,false);
+})();
+</script>
